@@ -23,7 +23,6 @@ public class View extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        //test
         //arent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
         VBox root = new VBox();
