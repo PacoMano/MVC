@@ -23,7 +23,12 @@ public class View extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        //arent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+
+        /*
+        AdditionModel model = new AdditionModel();
+        AdditionController controller = new AdditionController(model);
+        AdditionView view = new AdditionView(controller, model);
+        */
 
         VBox root = new VBox();
 
@@ -86,7 +91,8 @@ public class View extends Application {
             labelSelectedDirectory.setText(selectedDirectory.getAbsolutePath());
 
         });
-        primaryStage.setTitle("Hello World");
+
+        primaryStage.setTitle("Editor");
         primaryStage.setScene(new Scene(root, 600, 500));
         primaryStage.show();
     }
