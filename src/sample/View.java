@@ -7,6 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
@@ -28,13 +31,35 @@ public class View extends Application {
         MenuButton dropdownFile = new MenuButton("Datei");
         MenuItem menuOpen = new MenuItem("Öffnen");
         MenuItem menuSave = new MenuItem("Speichern");
+
         dropdownFile.getItems().addAll(
                 menuOpen,
                 menuSave
         );
-        ToolBar toolBar = new ToolBar(
+
+        ToolBar fileBar = new ToolBar(
             dropdownFile
         );
+
+        Button trim = new Button("Trim");
+
+        Pane pane = new Pane();
+        HBox spring = new HBox(pane);
+        HBox.setHgrow(pane, Priority.ALWAYS);
+
+        Label wordCount = new Label("X Wörter");
+        Separator separator = new Separator();
+        Label charCount = new Label("Y Zeichen");
+
+        ToolBar toolBar = new ToolBar(
+                trim,
+                pane,
+                wordCount,
+                separator,
+                charCount
+        );
+
+        root.getChildren().add(fileBar);
         root.getChildren().add(toolBar);
 
         Label labelSelectedDirectory = new Label("Dir");
@@ -59,7 +84,7 @@ public class View extends Application {
 
         });
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 600, 500));
         primaryStage.show();
     }
 
