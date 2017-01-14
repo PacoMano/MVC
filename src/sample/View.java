@@ -58,10 +58,14 @@ public class View extends Application {
                 charCount
         );
 
+        TextArea textArea = new TextArea();
+        textArea.setPrefRowCount(25);
+
         root.getChildren().add(fileBar);
         root.getChildren().add(toolBar);
+        root.getChildren().add(textArea);
 
-        Label labelSelectedDirectory = new Label("Dir");
+        Label labelSelectedDirectory = new Label("<Dir>");
         root.getChildren().add(labelSelectedDirectory);
 
         FileChooser fileChooser = new FileChooser();
