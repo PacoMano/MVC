@@ -14,13 +14,33 @@ import javafx.stage.Stage;
 
 public class View extends javafx.application.Application{
 
+    private TextArea textArea = new TextArea();
+    private Label wordCount = new Label();
+    private Label charCount = new Label();
+
+    public TextArea getTextArea() {
+        return textArea;
+    }
+
+    public void setTextArea(String text) {
+        this.textArea.setText(text);
+    }
+
+    public void setWordCount(Integer wordCount) {
+        this.wordCount.setText(wordCount.toString());
+    }
+
+    public void setCharCount(Integer charCount) {
+        this.charCount.setText(charCount.toString());
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 
         //// UI ////
 
         Model model = new Model();
-        Controller controller = new Controller(model);
+        Controller controller = new Controller(model, this);
 
         VBox root = new VBox();
 
@@ -42,9 +62,9 @@ public class View extends javafx.application.Application{
         Pane pane = new Pane();
         HBox.setHgrow(pane, Priority.ALWAYS);
 
-        Label wordCount = new Label("X Wörter");
+        this.wordCount = new Label("0");
         Separator separator = new Separator();
-        Label charCount = new Label("Y Zeichen");
+        this.charCount = new Label("0");
 
         ToolBar toolBar = new ToolBar(
                 trim,
@@ -60,7 +80,7 @@ public class View extends javafx.application.Application{
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Speichern unter:");
 
-        TextArea textArea = new TextArea();
+        this.textArea = new TextArea();
         textArea.setPrefRowCount(25);
 
         root.getChildren().add(fileBar);
@@ -89,6 +109,9 @@ public class View extends javafx.application.Application{
             controller.onTrim(textArea.getText());
         });
 
+        //// ////
+
+
 
         //// STAGESETUP ////
 
@@ -101,5 +124,4 @@ public class View extends javafx.application.Application{
     public static void main(String[] args) {
         launch(args);
     }
-
 }

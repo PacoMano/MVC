@@ -7,8 +7,6 @@ import java.io.File;
  */
 public class Model {
 
-    private String text;
-
     public void openFile(File path){
 
     }
@@ -17,15 +15,16 @@ public class Model {
 
     }
 
-    public void trim(String text) {
+    public String trim(String text) {
 
+        return text;
     }
 
-    public void refreshTools(String text) {
-
+    public Integer getCharCount(String text){
+        return 0;
     }
 
-    public String getText(){
-        return this.text;
-    };
+    public Integer getWordCount(String text){
+        return 0;
+    }
 }

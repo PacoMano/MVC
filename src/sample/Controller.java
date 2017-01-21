@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -10,9 +12,11 @@ import java.io.File;
 public class Controller {
 
     private Model model;
+    private View view;
 
-    public Controller(Model model){
+    public Controller(Model model, View view){
         this.model = model;
+        this.view = view;
     }
 
     public void onOpen(Stage primaryStage, FileChooser fileChooser){
@@ -34,10 +38,11 @@ public class Controller {
     }
 
     public void onTrim(String text){
-        model.trim(text);
+        view.setTextArea(model.trim(text));
     }
 
     public void onChange(String text){
-        model.refreshTools(text);
+        view.setWordCount(model.getWordCount(text));
+        view.setCharCount(model.getCharCount(text));
     }
 }
