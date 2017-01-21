@@ -1,34 +1,22 @@
 package sample;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.File;
-
-public class View extends Application {
+public class View extends javafx.application.Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        /*
-        AdditionModel model = new AdditionModel();
-        AdditionController controller = new AdditionController(model);
-        AdditionView view = new AdditionView(controller, model);
-        */
+        Model model = new Model();
+        Controller controller = new Controller(model);
 
         VBox root = new VBox();
 
@@ -48,7 +36,6 @@ public class View extends Application {
         Button trim = new Button("Trim");
 
         Pane pane = new Pane();
-        HBox spring = new HBox(pane);
         HBox.setHgrow(pane, Priority.ALWAYS);
 
         Label wordCount = new Label("X Wörter");
@@ -63,6 +50,12 @@ public class View extends Application {
                 charCount
         );
 
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Datei öffnen:");
+
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Speichern unter:");
+
         TextArea textArea = new TextArea();
         textArea.setPrefRowCount(25);
 
@@ -70,26 +63,20 @@ public class View extends Application {
         root.getChildren().add(toolBar);
         root.getChildren().add(textArea);
 
-        Label labelSelectedDirectory = new Label("<Dir>");
-        root.getChildren().add(labelSelectedDirectory);
-
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Datei öffnen:");
-
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setTitle("Speichern unter:");
-
-        menuOpen.setOnAction(event -> {
-            fileChooser.showOpenDialog(primaryStage);
-            File selectedDirectory = directoryChooser.showDialog(primaryStage);
-            labelSelectedDirectory.setText(selectedDirectory.getAbsolutePath());
+        menuOpen.setOnAction(event ->  {
+            controller.onOpen(primaryStage, fileChooser);
         });
 
         menuSave.setOnAction(event -> {
-            directoryChooser.showDialog(primaryStage);
-            File selectedDirectory = directoryChooser.showDialog(primaryStage);
-            labelSelectedDirectory.setText(selectedDirectory.getAbsolutePath());
+            controller.onSave(primaryStage, directoryChooser);
+        });
 
+        trim.setOnAction(event -> {
+            controller.onTrim(textArea);
+        });
+
+        textArea.setOnKeyTyped(event -> {
+            controller.onKeyPress(textArea);
         });
 
         primaryStage.setTitle("Editor");
