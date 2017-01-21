@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.scene.control.TextArea;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -34,11 +33,11 @@ public class Controller {
         model.saveFile(selectedDirectory);
     }
 
-    public void onTrim(TextArea textArea){
-        model.trim(textArea);
+    public void onTrim(String text){
+        model.trim(text);
     }
 
-    public void onKeyPress(TextArea textArea){
-        model.refreshTools(textArea);
+    public void onChange(String text){
+        model.refreshTools(text);
     }
 }

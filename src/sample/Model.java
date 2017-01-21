@@ -1,13 +1,14 @@
 package sample;
 
-import javafx.scene.control.TextArea;
-
 import java.io.File;
 
 /**
  * Created by patryk on 21.01.17.
  */
 public class Model {
+
+    private String text;
+
     public void openFile(File path){
 
     }
@@ -16,11 +17,15 @@ public class Model {
 
     }
 
-    public void trim(TextArea textArea) {
+    public void trim(String text) {
 
     }
 
-    public void refreshTools(TextArea textArea) {
+    public void refreshTools(String text) {
 
     }
+
+    public String getText(){
+        return this.text;
+    };
 }

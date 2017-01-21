@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -10,10 +12,12 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class View extends javafx.application.Application {
+public class View extends javafx.application.Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
+        //// UI ////
 
         Model model = new Model();
         Controller controller = new Controller(model);
@@ -63,6 +67,16 @@ public class View extends javafx.application.Application {
         root.getChildren().add(toolBar);
         root.getChildren().add(textArea);
 
+        //// EVENTHANDLING ////
+
+        textArea.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                controller.onChange(newValue);
+                System.out.println("newValue: " + newValue);
+            }
+        });
+
         menuOpen.setOnAction(event ->  {
             controller.onOpen(primaryStage, fileChooser);
         });
@@ -72,12 +86,11 @@ public class View extends javafx.application.Application {
         });
 
         trim.setOnAction(event -> {
-            controller.onTrim(textArea);
+            controller.onTrim(textArea.getText());
         });
 
-        textArea.setOnKeyTyped(event -> {
-            controller.onKeyPress(textArea);
-        });
+
+        //// STAGESETUP ////
 
         primaryStage.setTitle("Editor");
         primaryStage.setScene(new Scene(root, 600, 500));
@@ -88,4 +101,5 @@ public class View extends javafx.application.Application {
     public static void main(String[] args) {
         launch(args);
     }
+
 }
