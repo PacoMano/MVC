@@ -4,58 +4,61 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>310</x>
-      <y>250</y>
-      <w>210</w>
+      <x>200</x>
+      <y>220</y>
+      <w>470</w>
       <h>190</h>
     </coordinates>
     <panel_attributes>Controller
 --
-View
+- Model: model
+- View: view
 --
-+ openFile()
-+ saveFile()
-+ newFolder()
-+ getPath()
-+ trim()
-+ wordCounter()
-+ charCounter()</panel_attributes>
++ Controller(Model: model, View: view)
++ onOpen(Stage: primaryStage, FileChooser: fileChooser): void
++ onSave(Stage: primaryStage, DirectoryChooser: directoryChooser): void
++ onTrim(String: text): void
++ onChange(String: text): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>550</x>
-      <y>250</y>
+      <x>200</x>
+      <y>430</y>
+      <w>270</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>Model
+--
+
+--
++ openFile(File: path): void
++ saveFile(File: path): void
++ trim(String Text): String
++ getCharCount(String Text): Integer
++ getWordCount(String Text): Integer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>200</x>
+      <y>10</y>
       <w>210</w>
       <h>190</h>
     </coordinates>
     <panel_attributes>View
 --
-
+- TextArea: textArea
+- Label: wordCount
+- Label: charCount
 --
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>70</x>
-      <y>250</y>
-      <w>210</w>
-      <h>190</h>
-    </coordinates>
-    <panel_attributes>Model
---
-Controller
---
-+ openFile()
-+ saveFile()
-+ newFolder()
-+ getPath()
-+ trim()
-+ wordCounter()
-+ charCounter()</panel_attributes>
++ setTextArea() : void
++ setWordCount() : void
++ setCharCount() : void
++ start() : void
++ main() : void</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>

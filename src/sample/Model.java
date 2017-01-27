@@ -5,6 +5,7 @@ import java.io.File;
 /**
  * Created by patryk on 21.01.17.
  */
+
 public class Model {
 
     public void openFile(File path){
