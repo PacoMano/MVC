@@ -18,29 +18,15 @@ public class View extends javafx.application.Application{
     private Label wordCount = new Label();
     private Label charCount = new Label();
 
-    public TextArea getTextArea() {
-        return textArea;
-    }
-
-    public void setTextArea(String text) {
-        this.textArea.setText(text);
-    }
-
-    public void setWordCount(Integer wordCount) {
-        this.wordCount.setText(wordCount.toString());
-    }
-
-    public void setCharCount(Integer charCount) {
-        this.charCount.setText(charCount.toString());
-    }
-
     @Override
     public void start(Stage primaryStage) throws Exception{
 
         //// UI ////
 
+        ModelTest modelTest = new ModelTest();
+        // modelTest.trim();
         Model model = new Model();
-        Controller controller = new Controller(model, this);
+        Controller controller = new Controller(model);
 
         VBox root = new VBox();
 
@@ -62,15 +48,19 @@ public class View extends javafx.application.Application{
         Pane pane = new Pane();
         HBox.setHgrow(pane, Priority.ALWAYS);
 
+        Label wordTag = new Label("Wörter:");
         this.wordCount = new Label("0");
         Separator separator = new Separator();
+        Label charTag = new Label("Zeichen:");
         this.charCount = new Label("0");
 
         ToolBar toolBar = new ToolBar(
                 trim,
                 pane,
+                wordTag,
                 wordCount,
                 separator,
+                charTag,
                 charCount
         );
 
@@ -87,31 +77,32 @@ public class View extends javafx.application.Application{
         root.getChildren().add(toolBar);
         root.getChildren().add(textArea);
 
+        //// MODELLISTENERS ////
+
+        model.getTextArea().textProperty().addListener((observable, oldValue, newValue) -> {
+            this.textArea.setText(newValue);
+        });
+
+        model.getWordCount().textProperty().addListener((observable, oldValue, newValue) -> {
+            this.wordCount.setText(newValue);
+        });
+
+        model.getCharCount().textProperty().addListener((observable, oldValue, newValue) -> {
+            this.charCount.setText(newValue);
+        });
+
         //// EVENTHANDLING ////
 
-        textArea.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                controller.onChange(newValue);
-                System.out.println("newValue: " + newValue);
-            }
+        textArea.textProperty().addListener((observable, oldValue, newValue) -> {
+            controller.onChange(newValue);
+            System.out.println("newValue: " + newValue);
         });
 
-        menuOpen.setOnAction(event ->  {
-            controller.onOpen(primaryStage, fileChooser);
-        });
+        menuOpen.setOnAction(event -> controller.onOpen(primaryStage, fileChooser));
 
-        menuSave.setOnAction(event -> {
-            controller.onSave(primaryStage, directoryChooser);
-        });
+        menuSave.setOnAction(event -> controller.onSave(primaryStage, directoryChooser));
 
-        trim.setOnAction(event -> {
-            controller.onTrim(textArea.getText());
-        });
-
-        //// ////
-
-
+        trim.setOnAction(event -> controller.onTrim(new StringBuilder(this.textArea.getText())));
 
         //// STAGESETUP ////
 

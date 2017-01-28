@@ -1,31 +1,51 @@
 package sample;
 
-import java.io.File;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 
 /**
  * Created by patryk on 21.01.17.
  */
 
 public class Model {
+    private TextArea textArea= new TextArea();
+    private Label wordCount = new Label();
+    private Label charCount = new Label();
 
-    public void openFile(File path){
+    public TextArea getTextArea() {
+        return this.textArea;
+    }
+
+    public Label getWordCount(){
+        return this.wordCount;
+    }
+
+    public Label getCharCount(){
+        return this.charCount;
+    }
+
+    public void openFile(String path){
 
     }
 
-    public void saveFile(File path){
+    public void saveFile(String path){
 
     }
 
-    public String trim(String text) {
-
-        return text;
+    public void trim(StringBuilder text) {
+        for (int i = 0; i < text.length() - 1; i++) {
+            if (new String(text.substring(i, i + 2)).equals("  ")) {
+                this.textArea.setText(text.deleteCharAt(i).toString());
+                i = 0;
+            }
+        }
     }
 
-    public Integer getCharCount(String text){
-        return 0;
+    public void charCount(String text){
+        this.charCount.setText(Integer.toString(text.length()));
     }
 
-    public Integer getWordCount(String text){
-        return 0;
+    public void wordCount(String text){
+        this.wordCount.setText(Integer.toString(text.split("(\\W+)").length));
     }
 }
