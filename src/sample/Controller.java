@@ -7,11 +7,9 @@ import javafx.stage.Stage;
 public class Controller {
 
     private Model model;
-    // private View view;
 
     public Controller(Model model){
         this.model = model;
-        // this.view = view;
     }
 
     public void onOpen(Stage primaryStage, FileChooser fileChooser){

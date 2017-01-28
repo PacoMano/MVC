@@ -40,6 +40,7 @@ public class View extends javafx.application.Application{
         );
 
         ToolBar fileBar = new ToolBar(
+            // TODO make "menubar"
             dropdownFile
         );
 
