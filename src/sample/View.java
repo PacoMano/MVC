@@ -24,7 +24,7 @@ public class View extends javafx.application.Application{
         //// UI ////
 
         ModelTest modelTest = new ModelTest();
-        // modelTest.trim();
+        modelTest.trim();
         Model model = new Model();
         Controller controller = new Controller(model);
 
@@ -95,7 +95,6 @@ public class View extends javafx.application.Application{
 
         textArea.textProperty().addListener((observable, oldValue, newValue) -> {
             controller.onChange(newValue);
-            System.out.println("newValue: " + newValue);
         });
 
         menuOpen.setOnAction(event -> controller.onOpen(primaryStage, fileChooser));

@@ -24,17 +24,21 @@ public class ModelTest {
     public void trim() throws Exception {
         Model model = new Model();
         model.trim(new StringBuilder("Bob"));
-        System.out.println(model.getTextArea().getText());
+        // fixed
+        // fixed after making bug while fixing other bug
         assertEquals("No change expected", "Bob", model.getTextArea().getText());
         model.trim(new StringBuilder("Bob Charlie"));
         assertEquals("No change expected", "Bob Charlie", model.getTextArea().getText());
         model.trim(new StringBuilder("Bob\nCharlie"));
         assertEquals("No change expected", "Bob\nCharlie", model.getTextArea().getText());
         model.trim(new StringBuilder("Bob   Charlie"));
+        // fixed after making bug while fixing other bug
         assertEquals("Bob Charlie", model.getTextArea().getText());
         model.trim(new StringBuilder("Bob   Charlie   "));
-        assertEquals("Bob Charlie", model.getTextArea().getText());
+        // fixed after making bug while fixing other bug
+        assertEquals("Bob Charlie ", model.getTextArea().getText());
         model.trim(new StringBuilder("Bob Charlie   ."));
+        // fixed
         assertEquals("Bob Charlie.", model.getTextArea().getText());
         model.trim(new StringBuilder("Bob   Charlie   ."));
         assertEquals("Bob Charlie.", model.getTextArea().getText());
@@ -43,7 +47,8 @@ public class ModelTest {
         model.trim(new StringBuilder("Bob  \n  Charlie   ."));
         assertEquals("Bob \n Charlie.", model.getTextArea().getText());
         model.trim(new StringBuilder("   "));
-        assertEquals(" ", model.getTextArea().getText());
+        // fixed multiple times
+        assertEquals("", model.getTextArea().getText());
     }
 
     /*@org.junit.Test

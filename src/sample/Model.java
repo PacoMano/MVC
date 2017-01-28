@@ -1,5 +1,6 @@
 package sample;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
@@ -33,11 +34,27 @@ public class Model {
     }
 
     public void trim(StringBuilder text) {
+        Boolean flag = new Boolean(true);
+        Boolean notOnlySpaces = new Boolean(false);
         for (int i = 0; i < text.length() - 1; i++) {
-            if (new String(text.substring(i, i + 2)).equals("  ")) {
+            String cur = new String(text.substring(i, i + 2));
+            if (! cur.equals("  ") &&! cur.equals(" \n") &&! cur.equals("\n ")) {
+                notOnlySpaces = true;
+            }
+            if (cur.equals("  ")) {
                 this.textArea.setText(text.deleteCharAt(i).toString());
                 i = 0;
+                flag = false;
+            } else if (cur.equals(" .")) {
+                this.textArea.setText(text.deleteCharAt(i).toString());
+                i = 0;
+                flag = false;
             }
+        }
+        if (flag && notOnlySpaces) {
+            this.textArea.setText(text.toString());
+        } else if (notOnlySpaces == false){
+            this.textArea.setText("");
         }
     }
 
