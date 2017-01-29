@@ -12,6 +12,10 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * Created by patryk on 21.01.17.
+ */
+
 public class View extends javafx.application.Application{
 
     private TextArea textArea = new TextArea();
@@ -21,12 +25,24 @@ public class View extends javafx.application.Application{
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        //// UI ////
+
+        //// INITIALIZATION ////
 
         ModelTest modelTest = new ModelTest();
-        modelTest.trim();
         Model model = new Model();
         Controller controller = new Controller(model);
+
+
+        //// TESTS ////
+
+        modelTest.updateTextArea();
+        modelTest.charCount();
+        modelTest.wordCount();
+        modelTest.trim();
+        modelTest.saveAndOpen();
+
+
+        //// UI ////
 
         VBox root = new VBox();
 
@@ -78,6 +94,7 @@ public class View extends javafx.application.Application{
         root.getChildren().add(toolBar);
         root.getChildren().add(textArea);
 
+
         //// MODELLISTENERS ////
 
         model.getTextArea().textProperty().addListener((observable, oldValue, newValue) -> {
@@ -92,6 +109,7 @@ public class View extends javafx.application.Application{
             this.charCount.setText(newValue);
         });
 
+
         //// EVENTHANDLING ////
 
         textArea.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -102,7 +120,8 @@ public class View extends javafx.application.Application{
 
         menuSave.setOnAction(event -> controller.onSave(primaryStage, directoryChooser));
 
-        trim.setOnAction(event -> controller.onTrim(new StringBuilder(this.textArea.getText())));
+        trim.setOnAction(event -> controller.onTrim());
+
 
         //// STAGESETUP ////
 

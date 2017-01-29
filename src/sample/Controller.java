@@ -4,6 +4,10 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * Created by patryk on 21.01.17.
+ */
+
 public class Controller {
 
     private Model model;
@@ -28,12 +32,13 @@ public class Controller {
         model.saveFile(selectedDirectory);
     }
 
-    public void onTrim(StringBuilder text){
-        model.trim(text);
+    public void onTrim(){
+        model.trim();
     }
 
     public void onChange(String text){
-        model.wordCount(text);
-        model.charCount(text);
+        model.updateTextArea(text);
+        model.wordCount();
+        model.charCount();
     }
 }
