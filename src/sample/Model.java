@@ -3,6 +3,8 @@ package sample;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
+import java.io.*;
+
 /**
  * Created by patryk on 21.01.17.
  */
@@ -42,11 +44,37 @@ public class Model {
     }
 
     public void openFile(String path){
+        try(BufferedReader br = new BufferedReader(new FileReader(path))) {
+            StringBuilder tempText = new StringBuilder();
+            String line = br.readLine();
+
+            while (line != null) {
+                tempText.append(line);
+                line = br.readLine();
+                if (line != null) {
+                    tempText.append(System.lineSeparator());
+                    // lineseperator at end of every line except last
+                }
+            }
+            this.textArea.setText(tempText.toString());
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
     public void saveFile(String path){
-
+        // Java 7 required
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
+            bw.write(this.textArea.getText());
+            // TODO close?
+            System.out.println("Saved!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void trim() {
