@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 /**
  * Created by patryk on 21.01.17.
  */
-
 public class View extends javafx.application.Application{
 
     private TextArea textArea = new TextArea();
@@ -40,6 +39,7 @@ public class View extends javafx.application.Application{
         modelTest.wordCount();
         modelTest.trim();
         modelTest.saveAndOpen();
+        System.out.println("Testing finished successfully");
 
 
         //// UI ////

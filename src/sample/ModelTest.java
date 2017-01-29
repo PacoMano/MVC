@@ -49,7 +49,7 @@ public class ModelTest {
         Model model = new Model();
 
         String os = System.getProperty("os.name");
-        System.out.println(os);
+        System.out.println("OS: " + os);
         String path = new String();
         if (os == "Windows") {
             path = new File("").getAbsolutePath() + "\\Test.txt";
@@ -82,6 +82,7 @@ public class ModelTest {
                 model.getTextArea().getText());
         this.delete(path);
 
+        // TODO
         /*model.updateTextArea("Lorem ipsum dolor sit\n");
         model.saveFile(path);
         model.updateTextArea("");

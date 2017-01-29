@@ -19,7 +19,6 @@ public class Controller {
     public void onOpen(Stage primaryStage, FileChooser fileChooser){
 
         String selectedDirectory = fileChooser.showOpenDialog(primaryStage).getAbsolutePath();
-        System.out.println(selectedDirectory + "| - openPath");
 
         model.openFile(selectedDirectory);
     }
