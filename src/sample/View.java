@@ -11,11 +11,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import sun.java2d.cmm.ColorTransform;
 
 /**
  * Created by patryk on 21.01.17.
  */
 public class View extends javafx.application.Application{
+
+    // TODO rename to MVC-Editor (Model, Controller, View)
 
     private TextArea textArea = new TextArea();
     private Label wordCount = new Label();
@@ -27,9 +30,10 @@ public class View extends javafx.application.Application{
 
         //// INITIALIZATION ////
 
-        ModelTest modelTest = new ModelTest();
         Model model = new Model();
         Controller controller = new Controller(model);
+        ModelTest modelTest = new ModelTest();
+        ControllerTest controllerTest = new ControllerTest();
 
 
         //// TESTS ////
@@ -39,6 +43,11 @@ public class View extends javafx.application.Application{
         modelTest.wordCount();
         modelTest.trim();
         modelTest.saveAndOpen();
+
+        controllerTest.onChangeTest();
+        controllerTest.onSaveAndOnOpenTest();
+        controllerTest.onTrimTest();
+
         System.out.println("Testing finished successfully");
 
 
@@ -46,19 +55,23 @@ public class View extends javafx.application.Application{
 
         VBox root = new VBox();
 
-        MenuButton dropdownFile = new MenuButton("Datei");
+        /*MenuButton dropdownFile = new MenuButton("Datei");
         MenuItem menuOpen = new MenuItem("Öffnen");
         MenuItem menuSave = new MenuItem("Speichern");
 
         dropdownFile.getItems().addAll(
                 menuOpen,
                 menuSave
-        );
+        );*/
 
-        ToolBar fileBar = new ToolBar(
-            // TODO make "menubar"
-            dropdownFile
-        );
+        Menu menuFile = new Menu("File");
+
+        MenuItem menuOpen = new MenuItem("Open");
+        MenuItem menuSave = new MenuItem("Save");
+
+        menuFile.getItems().addAll(menuOpen, menuSave);
+
+        MenuBar menuBar = new MenuBar(menuFile);
 
         Button trim = new Button("Trim");
 
@@ -90,7 +103,7 @@ public class View extends javafx.application.Application{
         this.textArea = new TextArea();
         textArea.setPrefRowCount(25);
 
-        root.getChildren().add(fileBar);
+        root.getChildren().add(menuBar);
         root.getChildren().add(toolBar);
         root.getChildren().add(textArea);
 
@@ -116,9 +129,18 @@ public class View extends javafx.application.Application{
             controller.onChange(newValue);
         });
 
-        menuOpen.setOnAction(event -> controller.onOpen(primaryStage, fileChooser));
+        menuOpen.setOnAction(event -> {
+            String selectedDirectory = fileChooser.showOpenDialog(primaryStage).getAbsolutePath();
+            controller.onOpen(selectedDirectory);
+        });
 
-        menuSave.setOnAction(event -> controller.onSave(primaryStage, directoryChooser));
+        menuSave.setOnAction(event -> {
+            String selectedDirectory = directoryChooser.showDialog(primaryStage).getAbsolutePath();
+            selectedDirectory = selectedDirectory + "/File.txt";
+            // TODO let user name file?
+            System.out.println("Saving to " + selectedDirectory);
+            controller.onSave(selectedDirectory);
+        });
 
         trim.setOnAction(event -> controller.onTrim());
 
@@ -127,6 +149,9 @@ public class View extends javafx.application.Application{
 
         primaryStage.setTitle("Editor");
         primaryStage.setScene(new Scene(root, 600, 500));
+        // Minimal reasonable window size
+        primaryStage.setMinHeight(200);
+        primaryStage.setMinWidth(300);
         primaryStage.show();
     }
 

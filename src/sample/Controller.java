@@ -16,26 +16,11 @@ public class Controller {
         this.model = model;
     }
 
-    public void onOpen(Stage primaryStage, FileChooser fileChooser){
-
-        String selectedDirectory = fileChooser.showOpenDialog(primaryStage).getAbsolutePath();
-
+    public void onOpen(String selectedDirectory){
         model.openFile(selectedDirectory);
     }
 
-    public void onSave(Stage primaryStage, DirectoryChooser directoryChooser){
-        // TODO let user name file?
-        String selectedDirectory = directoryChooser.showDialog(primaryStage).getAbsolutePath();
-        String os = System.getProperty("os.name");
-        System.out.println(os);
-        if (os == "Windows") {
-            selectedDirectory = selectedDirectory + "\\File.txt";
-        } else {
-            selectedDirectory = selectedDirectory + "/File.txt";
-        }
-        System.out.println(selectedDirectory);
-        System.out.println(selectedDirectory + "| - savePath");
-
+    public void onSave(String selectedDirectory){
         model.saveFile(selectedDirectory);
     }
 

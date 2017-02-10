@@ -14,6 +14,16 @@ import static org.junit.Assert.*;
 
 public class ModelTest {
 
+    @org.junit.Test
+    void test(){
+        /*try() {
+            something.getExceptions();
+            fail("Exception not thrown");
+        } catch (Exception e) {
+            assertArrayEquals(true, e instanceof Model.ModelException, "" + Model.ModelException);
+        }*/
+    }
+
     private void delete(String path) {
         try {
             Files.delete(Paths.get(path));
@@ -33,29 +43,13 @@ public class ModelTest {
     }
 
     @org.junit.Test
-    public void openFile() throws Exception {
-        System.out.println("TEST: openFile()");
-    }
-
-    @org.junit.Test
-    public void saveFile() throws Exception {
-        System.out.println("TEST: saveFile()");
-    }
-
-    @org.junit.Test
     public void saveAndOpen(){
         System.out.println("TEST: saveAndOpen()");
 
         Model model = new Model();
 
-        String os = System.getProperty("os.name");
-        System.out.println("OS: " + os);
         String path = new String();
-        if (os == "Windows") {
-            path = new File("").getAbsolutePath() + "\\Test.txt";
-        } else {
-            path = new File("").getAbsolutePath() + "/Test.txt";
-        }
+        path = new File("").getAbsolutePath() + "/saveAndOpenModuleTest.txt";
         System.out.println(path);
 
         model.updateTextArea("Lorem ipsum dolor sit");

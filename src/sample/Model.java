@@ -78,10 +78,14 @@ public class Model {
     }
 
     public void trim() {
-        Boolean flag = Boolean.TRUE;
+        Boolean toZero = Boolean.FALSE;
         Boolean notOnlySpaces = Boolean.FALSE;
         StringBuilder text = new StringBuilder(this.getTextArea().getText());
         for (int i = 0; i < text.length() - 1; i++) {
+            if (toZero) {
+                i = 0;
+                toZero = false;
+            }
             // TODO ASK overengeneered?
             // TODO tabs if overengeneered == false
             String cur = text.substring(i, i + 2);
@@ -91,14 +95,14 @@ public class Model {
             if (cur.equals("  ")) {
                 this.textArea.setText(text.deleteCharAt(i).toString());
                 i = 0;
-                flag = false;
+                toZero = true;
             } else if (cur.equals(" .")) {
                 this.textArea.setText(text.deleteCharAt(i).toString());
                 i = 0;
-                flag = false;
+                toZero = true;
             }
         }
-        if (flag && notOnlySpaces) {
+        if (/*flag && */notOnlySpaces) {
             this.textArea.setText(text.toString());
         } else if (!notOnlySpaces){
             this.textArea.setText("");
