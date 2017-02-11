@@ -2,10 +2,7 @@ package sample;
 
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -15,17 +12,11 @@ import javafx.stage.Stage;
  */
 public class MVC_Editor_View extends javafx.application.Application{
 
-    // TODO rename to MVC-Editor (MVC_Editor_Model, MVC_Editor_Controller, MVC_Editor_View)
-
-    private TextArea textArea = new TextArea();
-    private Label wordCount = new Label();
-    private Label charCount = new Label();
-
     @Override
     public void start(Stage primaryStage) throws Exception{
 
 
-        //// INITIALIZATION ////
+        //// DEFINITION ////
 
         MVC_Editor_Model model = new MVC_Editor_Model();
         MVC_Editor_Controller controller = new MVC_Editor_Controller(model);
@@ -50,16 +41,7 @@ public class MVC_Editor_View extends javafx.application.Application{
 
         //// UI ////
 
-        VBox root = new VBox();
-
-        /*MenuButton dropdownFile = new MenuButton("Datei");
-        MenuItem menuOpen = new MenuItem("Öffnen");
-        MenuItem menuSave = new MenuItem("Speichern");
-
-        dropdownFile.getItems().addAll(
-                menuOpen,
-                menuSave
-        );*/
+        // MENUBAR //
 
         Menu menuFile = new Menu("Datei");
 
@@ -70,26 +52,31 @@ public class MVC_Editor_View extends javafx.application.Application{
 
         MenuBar menuBar = new MenuBar(menuFile);
 
-        Button trim = new Button("Trim");
+        // TOOLBAR //
 
-        Pane pane = new Pane();
-        HBox.setHgrow(pane, Priority.ALWAYS);
+        Button trimButton = new Button("Trim");
+
+        Pane growingPane = new Pane();
+        // makes pane have dynamic size so labels are arranged to the right
+        HBox.setHgrow(growingPane, Priority.ALWAYS);
 
         Label wordTag = new Label("Wörter:");
-        this.wordCount = new Label("0");
+        Label wordCountLabel = new Label("0");
         Separator separator = new Separator();
         Label charTag = new Label("Zeichen:");
-        this.charCount = new Label("0");
+        Label charCountLabel = new Label("0");
 
         ToolBar toolBar = new ToolBar(
-                trim,
-                pane,
+                trimButton,
+                growingPane,
                 wordTag,
-                wordCount,
+                wordCountLabel,
                 separator,
                 charTag,
-                charCount
+                charCountLabel
         );
+
+        // EXPLORER //
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Datei öffnen:");
@@ -97,27 +84,26 @@ public class MVC_Editor_View extends javafx.application.Application{
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Speichern unter:");
 
-        this.textArea = new TextArea();
-        textArea.setPrefRowCount(25);
+        // TEXTAREA //
+
+        TextArea textArea = new TextArea();
+        // makes textArea fill free vertical space
+        VBox.setVgrow(textArea, Priority.ALWAYS);
+
+        // UI CONSTRUCTION //
+
+        VBox root = new VBox();
 
         root.getChildren().add(menuBar);
         root.getChildren().add(toolBar);
         root.getChildren().add(textArea);
 
 
-        //// MODELLISTENERS ////
+        //// STAGESETUP ////
 
-        model.getTextArea().textProperty().addListener((observable, oldValue, newValue) -> {
-            this.textArea.setText(newValue);
-        });
-
-        model.getWordCount().textProperty().addListener((observable, oldValue, newValue) -> {
-            this.wordCount.setText(newValue);
-        });
-
-        model.getCharCount().textProperty().addListener((observable, oldValue, newValue) -> {
-            this.charCount.setText(newValue);
-        });
+        primaryStage.setTitle("MVC-Texteditor");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
 
 
         //// EVENTHANDLING ////
@@ -133,24 +119,18 @@ public class MVC_Editor_View extends javafx.application.Application{
 
         menuSave.setOnAction(event -> {
             String selectedDirectory = directoryChooser.showDialog(primaryStage).getAbsolutePath();
-            selectedDirectory = selectedDirectory + "/Datei.txt";
-            // TODO let user name file?
-            System.out.println("Saving to " + selectedDirectory);
-            controller.onSave(selectedDirectory);
+            controller.onSave(selectedDirectory + "/Datei.txt");
         });
 
-        trim.setOnAction(event -> controller.onTrim());
+        trimButton.setOnAction(event -> controller.onTrim());
 
 
-        //// STAGESETUP ////
+        //// MODELLISTENERS ////
 
-        primaryStage.setTitle("Editor");
-        primaryStage.setScene(new Scene(root, 600, 500));
-        primaryStage.show();
-    }
+        model.getTextArea().textProperty().addListener((observable, oldValue, newValue) -> textArea.setText(newValue));
 
+        model.getWordCount().textProperty().addListener((observable, oldValue, newValue) -> wordCountLabel.setText(newValue));
 
-    public static void main(String[] args) {
-        launch(args);
+        model.getCharCount().textProperty().addListener((observable, oldValue, newValue) -> charCountLabel.setText(newValue));
     }
 }
