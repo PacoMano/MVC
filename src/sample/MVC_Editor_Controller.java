@@ -1,18 +1,14 @@
 package sample;
 
-import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-
 /**
  * Created by patryk on 21.01.17.
  */
 
-public class Controller {
+public class MVC_Editor_Controller {
 
-    private Model model;
+    private MVC_Editor_Model model;
 
-    public Controller(Model model){
+    public MVC_Editor_Controller(MVC_Editor_Model model){
         this.model = model;
     }
 

@@ -1,7 +1,5 @@
 package sample;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -11,14 +9,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import sun.java2d.cmm.ColorTransform;
 
 /**
  * Created by patryk on 21.01.17.
  */
-public class View extends javafx.application.Application{
+public class MVC_Editor_View extends javafx.application.Application{
 
-    // TODO rename to MVC-Editor (Model, Controller, View)
+    // TODO rename to MVC-Editor (MVC_Editor_Model, MVC_Editor_Controller, MVC_Editor_View)
 
     private TextArea textArea = new TextArea();
     private Label wordCount = new Label();
@@ -30,10 +27,10 @@ public class View extends javafx.application.Application{
 
         //// INITIALIZATION ////
 
-        Model model = new Model();
-        Controller controller = new Controller(model);
-        ModelTest modelTest = new ModelTest();
-        ControllerTest controllerTest = new ControllerTest();
+        MVC_Editor_Model model = new MVC_Editor_Model();
+        MVC_Editor_Controller controller = new MVC_Editor_Controller(model);
+        MVC_Editor_ModelTest modelTest = new MVC_Editor_ModelTest();
+        MVC_Editor_ControllerTest controllerTest = new MVC_Editor_ControllerTest();
 
 
         //// TESTS ////
@@ -64,10 +61,10 @@ public class View extends javafx.application.Application{
                 menuSave
         );*/
 
-        Menu menuFile = new Menu("File");
+        Menu menuFile = new Menu("Datei");
 
-        MenuItem menuOpen = new MenuItem("Open");
-        MenuItem menuSave = new MenuItem("Save");
+        MenuItem menuOpen = new MenuItem("Öffnen");
+        MenuItem menuSave = new MenuItem("Speichern");
 
         menuFile.getItems().addAll(menuOpen, menuSave);
 
@@ -136,7 +133,7 @@ public class View extends javafx.application.Application{
 
         menuSave.setOnAction(event -> {
             String selectedDirectory = directoryChooser.showDialog(primaryStage).getAbsolutePath();
-            selectedDirectory = selectedDirectory + "/File.txt";
+            selectedDirectory = selectedDirectory + "/Datei.txt";
             // TODO let user name file?
             System.out.println("Saving to " + selectedDirectory);
             controller.onSave(selectedDirectory);
@@ -149,9 +146,6 @@ public class View extends javafx.application.Application{
 
         primaryStage.setTitle("Editor");
         primaryStage.setScene(new Scene(root, 600, 500));
-        // Minimal reasonable window size
-        primaryStage.setMinHeight(200);
-        primaryStage.setMinWidth(300);
         primaryStage.show();
     }
 

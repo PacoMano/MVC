@@ -9,7 +9,7 @@ import java.io.*;
  * Created by patryk on 21.01.17.
  */
 
-public class Model {
+public class MVC_Editor_Model {
 
 
     //// ATTRIBUTES ////
@@ -57,7 +57,6 @@ public class Model {
                 }
             }
             this.textArea.setText(tempText.toString());
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -78,35 +77,15 @@ public class Model {
     }
 
     public void trim() {
-        Boolean toZero = Boolean.FALSE;
-        Boolean notOnlySpaces = Boolean.FALSE;
         StringBuilder text = new StringBuilder(this.getTextArea().getText());
         for (int i = 0; i < text.length() - 1; i++) {
-            if (toZero) {
-                i = 0;
-                toZero = false;
-            }
-            // TODO ASK overengeneered?
-            // TODO tabs if overengeneered == false
             String cur = text.substring(i, i + 2);
-            if (! cur.equals("  ") &&! cur.equals(" \n") &&! cur.equals("\n ")) {
-                notOnlySpaces = true;
-            }
             if (cur.equals("  ")) {
                 this.textArea.setText(text.deleteCharAt(i).toString());
-                i = 0;
-                toZero = true;
-            } else if (cur.equals(" .")) {
-                this.textArea.setText(text.deleteCharAt(i).toString());
-                i = 0;
-                toZero = true;
+                i = -1;
             }
         }
-        if (/*flag && */notOnlySpaces) {
-            this.textArea.setText(text.toString());
-        } else if (!notOnlySpaces){
-            this.textArea.setText("");
-        }
+        this.textArea.setText(text.toString());
     }
 
     public void charCount(){

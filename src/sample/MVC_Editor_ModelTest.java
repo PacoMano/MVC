@@ -3,7 +3,6 @@ package sample;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.junit.Assert.*;
@@ -12,15 +11,16 @@ import static org.junit.Assert.*;
  * Created by patryk on 21.01.17.
  */
 
-public class ModelTest {
+public class MVC_Editor_ModelTest {
 
     @org.junit.Test
     void test(){
+        // TODO
         /*try() {
             something.getExceptions();
             fail("Exception not thrown");
         } catch (Exception e) {
-            assertArrayEquals(true, e instanceof Model.ModelException, "" + Model.ModelException);
+            assertArrayEquals(true, e instanceof MVC_Editor_Model.ModelException, "" + MVC_Editor_Model.ModelException);
         }*/
     }
 
@@ -36,7 +36,7 @@ public class ModelTest {
     public void updateTextArea() throws Exception {
         System.out.println("TEST: updateTextArea()");
 
-        Model model = new Model();
+        MVC_Editor_Model model = new MVC_Editor_Model();
 
         model.updateTextArea("Lorem ipsum dolor sit");
         assertEquals("TextArea not updated.", "Lorem ipsum dolor sit", model.getTextArea().getText());
@@ -46,7 +46,7 @@ public class ModelTest {
     public void saveAndOpen(){
         System.out.println("TEST: saveAndOpen()");
 
-        Model model = new Model();
+        MVC_Editor_Model model = new MVC_Editor_Model();
 
         String path = new String();
         path = new File("").getAbsolutePath() + "/saveAndOpenModuleTest.txt";
@@ -90,7 +90,7 @@ public class ModelTest {
     public void charCount() throws Exception {
         System.out.println("TEST: charCount()");
 
-        Model model = new Model();
+        MVC_Editor_Model model = new MVC_Editor_Model();
         // TODO streamline
         // TODO split tests so to make debug easier
         // TODO is 'actual' actually nessecary?
@@ -168,7 +168,7 @@ public class ModelTest {
     public void wordCount() throws Exception {
         System.out.println("TEST: wordCount()");
 
-        Model model = new Model();
+        MVC_Editor_Model model = new MVC_Editor_Model();
         // TODO streamline
         // TODO split tests so to make debug easier
         // TODO is 'actual' actually nessecary?
@@ -230,7 +230,7 @@ public class ModelTest {
     public void trim() throws Exception {
         System.out.println("TEST: trim()");
 
-        Model model = new Model();
+        MVC_Editor_Model model = new MVC_Editor_Model();
         // TODO streamline
         // TODO split tests so to make debug easier
 
@@ -261,24 +261,30 @@ public class ModelTest {
         model.updateTextArea("Bob Charlie   .");
         model.trim();
         // fixed
-        assertEquals("Bob Charlie.", model.getTextArea().getText());
+        assertEquals("Bob Charlie .", model.getTextArea().getText());
 
         model.updateTextArea("Bob   Charlie   .");
         model.trim();
-        assertEquals("Bob Charlie.", model.getTextArea().getText());
+        assertEquals("Bob Charlie .", model.getTextArea().getText());
 
         model.updateTextArea("Bob   \nCharlie   .");
         model.trim();
-        assertEquals("Bob \nCharlie.", model.getTextArea().getText());
+        assertEquals("Bob \nCharlie .", model.getTextArea().getText());
 
         model.updateTextArea("Bob  \n  Charlie   .");
         model.trim();
-        assertEquals("Bob \n Charlie.", model.getTextArea().getText());
+        assertEquals("Bob \n Charlie .", model.getTextArea().getText());
+
+        // Error in manual testing but not in automated testing
+        // fixed
+        model.updateTextArea("  Alice");
+        model.trim();
+        assertEquals(" Alice", model.getTextArea().getText());
 
         model.updateTextArea("   ");
         model.trim();
         // fixed multiple times
-        assertEquals("", model.getTextArea().getText());
+        assertEquals(" ", model.getTextArea().getText());
 
         model.updateTextArea("asdf  \tasdf");
         model.trim();
