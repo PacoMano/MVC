@@ -4,6 +4,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
 import java.io.*;
+import java.util.Scanner;
 
 /**
  * Created by patryk on 21.01.17.
@@ -26,12 +27,12 @@ public class MVC_Editor_Model {
         return this.textArea;
     }
 
-    public Label getWordCount(){
+    public Label getWordCount() {
         // used in tests and listeners
         return this.wordCount;
     }
 
-    public Label getCharCount(){
+    public Label getCharCount() {
         // used in tests and listeners
         return this.charCount;
     }
@@ -40,37 +41,28 @@ public class MVC_Editor_Model {
     //// METHODS ////
 
     public void updateTextArea(String text) {
+        // ubdates textArea so other Methods can read latest content directly from Attribute
         this.textArea.setText(text);
     }
 
     public void openFile(String path){
-        try(BufferedReader br = new BufferedReader(new FileReader(path))) {
-            StringBuilder tempText = new StringBuilder();
-            String line = br.readLine();
-
-            while (line != null) {
-                tempText.append(line);
-                line = br.readLine();
-                if (line != null) {
-                    tempText.append(System.lineSeparator());
-                    // lineseperator at end of every line except last
-                }
-            }
-            this.textArea.setText(tempText.toString());
+        try {
+            File file = new File(path);
+            Scanner scanner = new Scanner(file);
+            scanner.useDelimiter("\\r");
+            // makes scanner read whole file instead of only one line
+            this.textArea.setText(scanner.next());
+            scanner.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
     }
 
     public void saveFile(String path){
-        // Java 7 required
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
             bw.write(this.textArea.getText());
-            // TODO close?
-            System.out.println("Saved!");
+            System.out.println("Saved to " + path );
+            bw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -78,29 +70,28 @@ public class MVC_Editor_Model {
 
     public void trim() {
         StringBuilder text = new StringBuilder(this.getTextArea().getText());
+        // StringBuilder to make text mutable
         for (int i = 0; i < text.length() - 1; i++) {
-            String cur = text.substring(i, i + 2);
-            if (cur.equals("  ")) {
-                this.textArea.setText(text.deleteCharAt(i).toString());
-                i = -1;
+            if (text.substring(i, i + 2).equals("  ")) {
+                text.deleteCharAt(i);
+                i--;
+                // check this index again b/c char at this index potentially changed
             }
         }
         this.textArea.setText(text.toString());
     }
 
     public void charCount(){
-        String text = this.getTextArea().getText();
-        this.charCount.setText(Integer.toString(text.length()));
+        this.charCount.setText(Integer.toString(this.getTextArea().getText().length()));
     }
 
     public void wordCount(){
         String text = this.getTextArea().getText();
+
         if (text.equals("")) {
             // otherwise no input is one word
             this.wordCount.setText("0");
         } else {
-            // TODO which one?
-            // this.wordCount.setText(Integer.toString(text.split("([ \\t\\n]+)").length));
             this.wordCount.setText(Integer.toString(text.split("(\\W+)").length));
         }
     }

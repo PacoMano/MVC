@@ -76,14 +76,13 @@ public class MVC_Editor_ModelTest {
                 model.getTextArea().getText());
         this.delete(path);
 
-        // TODO
-        /*model.updateTextArea("Lorem ipsum dolor sit\n");
+        model.updateTextArea("Lorem ipsum dolor sit\n");
         model.saveFile(path);
         model.updateTextArea("");
         model.openFile(path);
-        assertEquals("Newline at end causing problems.", "Lorem ipsum dolor sit\n",
+        assertEquals("Tab causing problems.", "Lorem ipsum dolor sit\n",
                 model.getTextArea().getText());
-        this.delete(path);*/
+        this.delete(path);
     }
 
     @org.junit.Test

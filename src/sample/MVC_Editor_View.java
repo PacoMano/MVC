@@ -108,9 +108,7 @@ public class MVC_Editor_View extends javafx.application.Application{
 
         //// EVENTHANDLING ////
 
-        textArea.textProperty().addListener((observable, oldValue, newValue) -> {
-            controller.onChange(newValue);
-        });
+        textArea.textProperty().addListener((observable, oldValue, newValue) -> controller.onChange(newValue));
 
         menuOpen.setOnAction(event -> {
             String selectedDirectory = fileChooser.showOpenDialog(primaryStage).getAbsolutePath();
