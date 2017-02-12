@@ -18,6 +18,7 @@ public class MVC_Editor_Model {
     private TextArea textArea= new TextArea();
     private Label wordCount = new Label();
     private Label charCount = new Label();
+    // TODO order wordCountTest and charCountTest
 
 
     //// GETTER ////

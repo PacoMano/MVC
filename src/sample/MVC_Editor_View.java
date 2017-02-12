@@ -26,14 +26,15 @@ public class MVC_Editor_View extends javafx.application.Application{
 
         //// TESTS ////
 
-        modelTest.updateTextArea();
-        modelTest.charCount();
-        modelTest.wordCount();
-        modelTest.trim();
-        modelTest.saveAndOpen();
+        modelTest.updateTextAreaTest();
+        modelTest.charCountTest();
+        modelTest.wordCountTest();
+        modelTest.trimTest();
+        modelTest.saveAndOpenTest();
 
         controllerTest.onChangeTest();
-        controllerTest.onSaveAndOnOpenTest();
+        controllerTest.onSaveTest();
+        controllerTest.onOpenTest();
         controllerTest.onTrimTest();
 
         System.out.println("Testing finished successfully");
