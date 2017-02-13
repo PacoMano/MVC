@@ -7,7 +7,9 @@ import java.io.*;
 import java.util.Scanner;
 
 /**
- * Created by patryk on 21.01.17.
+ * Processes text from {@link sample.MVC_Editor_View} and saves results in Attributes
+ *
+ * @author patry
  */
 
 public class MVC_Editor_Model {
@@ -21,31 +23,57 @@ public class MVC_Editor_Model {
     // TODO order wordCountTest and charCountTest
 
 
-    //// GETTER ////
+    //// GETTER & SETTER////
 
+    /**
+     * Returns attribute <pre>textArea</pre>
+     *
+     * @return this.textArea
+     */
     public TextArea getTextArea() {
         // used in tests and listeners
         return this.textArea;
     }
 
+    /**
+     * Returns attribute <pre>wordCount</pre>
+     *
+     * @return this.wordCount
+     */
     public Label getWordCount() {
         // used in tests and listeners
         return this.wordCount;
     }
 
+    /**
+     * Returns attribute <pre>charCount</pre>
+     *
+     * @return this.charCount
+     */
     public Label getCharCount() {
         // used in tests and listeners
         return this.charCount;
     }
 
-
-    //// METHODS ////
-
-    public void updateTextArea(String text) {
+    /**
+     * Sets attribute <pre>textArea</pre> to parameter <pre>text</pre>
+     *
+     * @param text
+     */
+    public void setTextArea(String text) {
         // ubdates textArea so other Methods can read latest content directly from Attribute
         this.textArea.setText(text);
     }
 
+
+    //// METHODS ////
+
+    /**
+     * Reads content from file with path <pre>path</pre> and saves it to attribute <pre>textArea</pre>
+     *
+     * @param path
+     * @exception FileNotFoundException
+     */
     public void openFile(String path){
         try {
             File file = new File(path);
@@ -59,6 +87,12 @@ public class MVC_Editor_Model {
         }
     }
 
+    /**
+     * Creates a new file at path <pre>path</pre> then reads content from attribute <pre>textArea</pre> and saves it
+     * to just created file
+     *
+     * @param path
+     */
     public void saveFile(String path){
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
             bw.write(this.textArea.getText());
@@ -69,6 +103,10 @@ public class MVC_Editor_Model {
         }
     }
 
+    /**
+     * Modifies content from attribute <pre>textArea</pre> so there are never multiple spaces directly next to one
+     * another
+     */
     public void trim() {
         StringBuilder text = new StringBuilder(this.getTextArea().getText());
         // StringBuilder to make text mutable
@@ -82,10 +120,16 @@ public class MVC_Editor_Model {
         this.textArea.setText(text.toString());
     }
 
+    /**
+     * Counts chars in attribute <pre>textArea</pre> and saves result to attribute <pre>wordCount</pre>
+     */
     public void charCount(){
         this.charCount.setText(Integer.toString(this.getTextArea().getText().length()));
     }
 
+    /**
+     * Counts words in attribute <pre>textArea</pre> and saves result to attribute <pre>wordCount</pre>
+     */
     public void wordCount(){
         String text = this.getTextArea().getText();
 

@@ -8,7 +8,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
- * Created by patryk on 21.01.17.
+ * Constructs the project, includes tests and UI
+ *
+ * @author patryk
  */
 public class MVC_Editor_View extends javafx.application.Application{
 
@@ -26,7 +28,7 @@ public class MVC_Editor_View extends javafx.application.Application{
 
         //// TESTS ////
 
-        modelTest.updateTextAreaTest();
+        modelTest.setTextAreaTest();
         modelTest.charCountTest();
         modelTest.wordCountTest();
         modelTest.trimTest();
