@@ -19,7 +19,7 @@ class MVC_Editor_ModelTest {
         }
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     void test(){
         // TODO
         /*try() {
@@ -31,7 +31,7 @@ class MVC_Editor_ModelTest {
     }
 
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void setTextAreaTest() throws Exception {
         System.out.println("TEST: setTextAreaTest()");
 
@@ -41,7 +41,7 @@ class MVC_Editor_ModelTest {
         assertEquals("TextArea not updated.", "Lorem ipsum dolor sit", model.getTextArea().getText());
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void saveAndOpenTest(){
         // tested together b/c if testing only one this test method would need to implement the algorithm of the other
         // one to assert whether the test was successful;copying the algorithm or calling the method makes no difference
@@ -102,7 +102,7 @@ class MVC_Editor_ModelTest {
         this.deleteFile(path);
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void charCountTest() throws Exception {
         System.out.println("TEST: charCountTest()");
 
@@ -206,7 +206,7 @@ class MVC_Editor_ModelTest {
         assertEquals("'null' not counted correctly.", Integer.valueOf(4), actual);
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void wordCountTest() throws Exception {
         System.out.println("TEST: wordCountTest()");
 
@@ -294,7 +294,7 @@ class MVC_Editor_ModelTest {
         assertEquals("Space at index 0 bevore word in TextArea not counted correctly.", Integer.valueOf(1), actual);*/
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void trimTest() throws Exception {
         System.out.println("TEST: trimTest()");
 

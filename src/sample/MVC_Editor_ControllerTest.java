@@ -15,7 +15,7 @@ import java.nio.file.Paths;
  */
 class MVC_Editor_ControllerTest {
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void onChangeTest() {
         System.out.println("TEST: onChange()");
 
@@ -26,7 +26,7 @@ class MVC_Editor_ControllerTest {
         assertEquals("Lorem ipsum", model.getTextArea().getText());
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void onSaveTest() {
         // individual tests for onSave() and onOpen() b/c saveFile() and openFile() are already tested
 
@@ -50,7 +50,7 @@ class MVC_Editor_ControllerTest {
         }
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void onOpenTest() {
         // individual tests for onSave() and onOpen() b/c saveFile() and openFile() are already tested
 
@@ -75,7 +75,7 @@ class MVC_Editor_ControllerTest {
     }
 
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void onTrimTest() {
         System.out.println("TEST: onTrim()");
 
