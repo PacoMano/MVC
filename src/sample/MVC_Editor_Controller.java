@@ -57,4 +57,16 @@ public class MVC_Editor_Controller {
         model.wordCount();
         model.charCount();
     }
+
+    public String updateTextArea() {
+        return model.getTextArea();
+    }
+
+    public String updateWordCountLabel() {
+        return model.getWordCount();
+    }
+
+    public String updateCharCountLabel() {
+        return model.getCharCount();
+    }
 }

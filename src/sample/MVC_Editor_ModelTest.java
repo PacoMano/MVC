@@ -26,7 +26,7 @@ class MVC_Editor_ModelTest {
             something.getExceptions();
             fail("Exception not thrown");
         } catch (Exception e) {
-            assertArrayEquals(true, e instanceof MVC_Editor_Model.ModelException, "" + MVC_Editor_Model.ModelException);
+            assertEquals(true, e instanceof MVC_Editor_Model.ModelException, "" + MVC_Editor_Model.ModelException);
         }*/
     }
 

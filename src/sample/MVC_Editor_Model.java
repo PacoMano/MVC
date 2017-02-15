@@ -17,9 +17,9 @@ public class MVC_Editor_Model {
 
     //// ATTRIBUTES ////
 
-    private TextArea textArea= new TextArea();
-    private Label wordCount = new Label();
-    private Label charCount = new Label();
+    private String textArea= new String();
+    private String wordCount = new String();
+    private String charCount = new String();
     // TODO order wordCountTest and charCountTest
 
 
@@ -30,7 +30,7 @@ public class MVC_Editor_Model {
      *
      * @return this.textArea
      */
-    public TextArea getTextArea() {
+    public String getTextArea() {
         // used in tests and listeners
         return this.textArea;
     }
@@ -40,7 +40,7 @@ public class MVC_Editor_Model {
      *
      * @return this.wordCount
      */
-    public Label getWordCount() {
+    public String getWordCount() {
         // used in tests and listeners
         return this.wordCount;
     }
@@ -50,7 +50,7 @@ public class MVC_Editor_Model {
      *
      * @return this.charCount
      */
-    public Label getCharCount() {
+    public String getCharCount() {
         // used in tests and listeners
         return this.charCount;
     }
@@ -62,7 +62,7 @@ public class MVC_Editor_Model {
      */
     public void setTextArea(String text) {
         // ubdates textArea so other Methods can read latest content directly from Attribute
-        this.textArea.setText(text);
+        this.textArea = text;
     }
 
 
@@ -80,7 +80,7 @@ public class MVC_Editor_Model {
             Scanner scanner = new Scanner(file);
             scanner.useDelimiter("\\r");
             // makes scanner read whole file instead of only one line
-            this.textArea.setText(scanner.next());
+            this.textArea = scanner.next();
             scanner.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -95,7 +95,7 @@ public class MVC_Editor_Model {
      */
     public void saveFile(String path){
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
-            bw.write(this.textArea.getText());
+            bw.write(this.textArea);
             System.out.println("Saved to " + path );
             bw.close();
         } catch (IOException e) {
@@ -108,8 +108,10 @@ public class MVC_Editor_Model {
      * another
      */
     public void trim() {
-        StringBuilder text = new StringBuilder(this.getTextArea().getText());
+        StringBuilder text = new StringBuilder(this.getTextArea());
         // StringBuilder to make text mutable
+        // TODO StringBuilder nicht direkt <<mutable string>>
+        // TODO auch in protokoll
         for (int i = 0; i < text.length() - 1; i++) {
             if (text.substring(i, i + 2).equals("  ")) {
                 text.deleteCharAt(i);
@@ -117,27 +119,27 @@ public class MVC_Editor_Model {
                 // check this index again b/c char at this index potentially changed
             }
         }
-        this.textArea.setText(text.toString());
+        this.textArea = text.toString();
     }
 
     /**
      * Counts chars in attribute <pre>textArea</pre> and saves result to attribute <pre>wordCount</pre>
      */
     public void charCount(){
-        this.charCount.setText(Integer.toString(this.getTextArea().getText().length()));
+        this.charCount = Integer.toString(this.getTextArea().length());
     }
 
     /**
      * Counts words in attribute <pre>textArea</pre> and saves result to attribute <pre>wordCount</pre>
      */
     public void wordCount(){
-        String text = this.getTextArea().getText();
+        String text = this.getTextArea();
 
         if (text.equals("")) {
             // otherwise no input is one word
-            this.wordCount.setText("0");
+            this.wordCount = "0";
         } else {
-            this.wordCount.setText(Integer.toString(text.split("(\\W+)").length));
+            this.wordCount = Integer.toString(text.split("(\\W+)").length);
         }
     }
 }

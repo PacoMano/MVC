@@ -18,6 +18,7 @@ public class MVC_Editor_View extends javafx.application.Application{
     public void start(Stage primaryStage) throws Exception{
 
 
+        // TODO StarUML
         //// DEFINITION ////
 
         MVC_Editor_Model model = new MVC_Editor_Model();
@@ -111,7 +112,10 @@ public class MVC_Editor_View extends javafx.application.Application{
 
         //// EVENTHANDLING ////
 
-        textArea.textProperty().addListener((observable, oldValue, newValue) -> controller.onChange(newValue));
+        textArea.textProperty().addListener((observable, oldValue, newValue) -> {
+            controller.onChange(newValue);
+            // TODO
+        });
 
         menuOpen.setOnAction(event -> {
             String selectedDirectory = fileChooser.showOpenDialog(primaryStage).getAbsolutePath();
@@ -128,10 +132,10 @@ public class MVC_Editor_View extends javafx.application.Application{
 
         //// MODELLISTENERS ////
 
-        model.getTextArea().textProperty().addListener((observable, oldValue, newValue) -> textArea.setText(newValue));
+        // model.getTextArea().textProperty().addListener((observable, oldValue, newValue) -> textArea.setText(newValue));
 
-        model.getWordCount().textProperty().addListener((observable, oldValue, newValue) -> wordCountLabel.setText(newValue));
+        // model.getWordCount().textProperty().addListener((observable, oldValue, newValue) -> wordCountLabel.setText(newValue));
 
-        model.getCharCount().textProperty().addListener((observable, oldValue, newValue) -> charCountLabel.setText(newValue));
+        // model.getCharCount().textProperty().addListener((observable, oldValue, newValue) -> charCountLabel.setText(newValue));
     }
 }
