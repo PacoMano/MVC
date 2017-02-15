@@ -114,28 +114,34 @@ public class MVC_Editor_View extends javafx.application.Application{
 
         textArea.textProperty().addListener((observable, oldValue, newValue) -> {
             controller.onChange(newValue);
-            // TODO
+            wordCountLabel.setText(controller.updateWordCountLabel());
+            charCountLabel.setText(controller.updateCharCountLabel());
         });
 
         menuOpen.setOnAction(event -> {
             String selectedDirectory = fileChooser.showOpenDialog(primaryStage).getAbsolutePath();
             controller.onOpen(selectedDirectory);
+
+            textArea.setText(controller.updateTextArea());
+            wordCountLabel.setText(controller.updateWordCountLabel());
+            charCountLabel.setText(controller.updateCharCountLabel());
         });
 
         menuSave.setOnAction(event -> {
             String selectedDirectory = directoryChooser.showDialog(primaryStage).getAbsolutePath();
             controller.onSave(selectedDirectory + "/Datei.txt");
+
+            textArea.setText(controller.updateTextArea());
+            wordCountLabel.setText(controller.updateWordCountLabel());
+            charCountLabel.setText(controller.updateCharCountLabel());
         });
 
-        trimButton.setOnAction(event -> controller.onTrim());
+        trimButton.setOnAction(event -> {
+            controller.onTrim();
 
-
-        //// MODELLISTENERS ////
-
-        // model.getTextArea().textProperty().addListener((observable, oldValue, newValue) -> textArea.setText(newValue));
-
-        // model.getWordCount().textProperty().addListener((observable, oldValue, newValue) -> wordCountLabel.setText(newValue));
-
-        // model.getCharCount().textProperty().addListener((observable, oldValue, newValue) -> charCountLabel.setText(newValue));
+            textArea.setText(controller.updateTextArea());
+            wordCountLabel.setText(controller.updateWordCountLabel());
+            charCountLabel.setText(controller.updateCharCountLabel());
+        });
     }
 }

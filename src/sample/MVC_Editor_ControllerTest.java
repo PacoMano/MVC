@@ -23,7 +23,7 @@ class MVC_Editor_ControllerTest {
         MVC_Editor_Controller controller = new MVC_Editor_Controller(model);
 
         controller.onChange("Lorem ipsum");
-        assertEquals("Lorem ipsum", model.getTextArea().getText());
+        assertEquals("Lorem ipsum", model.getTextArea());
     }
 
     @org.junit.jupiter.api.Test
@@ -41,7 +41,7 @@ class MVC_Editor_ControllerTest {
         controller.onSave(path);
         controller.onChange("");
         model.openFile(path);
-        assertEquals("Lorem \nipsum", model.getTextArea().getText());
+        assertEquals("Lorem \nipsum", model.getTextArea());
 
         try {
             Files.delete(Paths.get(path));
@@ -65,7 +65,7 @@ class MVC_Editor_ControllerTest {
         controller.onSave(path);
         controller.onChange("");
         controller.onOpen(path);
-        assertEquals("Lorem \nipsum\n", model.getTextArea().getText());
+        assertEquals("Lorem \nipsum\n", model.getTextArea());
 
         try {
             Files.delete(Paths.get(path));
@@ -84,6 +84,6 @@ class MVC_Editor_ControllerTest {
 
         controller.onChange("  Lorem  ipsum  ");
         controller.onTrim();
-        assertEquals(" Lorem ipsum ", model.getTextArea().getText());
+        assertEquals(" Lorem ipsum ", model.getTextArea());
     }
 }
