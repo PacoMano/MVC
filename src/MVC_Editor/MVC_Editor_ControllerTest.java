@@ -1,20 +1,23 @@
-package sample;
+package MVC_Editor;
 
 import static org.junit.Assert.assertEquals;
 
-import org.testng.annotations.Test;
-
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-
 /**
- * Created by patryk on
+ * JUnit 5 tests for method in {@link MVC_Editor_Controller}
+ *
+ * @author dqi15bierzynski
  */
 class MVC_Editor_ControllerTest {
 
+    /**
+     * JUnit 5 tests for method <pre>onChange</pre>in {@link MVC_Editor_Controller}
+     */
     @org.junit.jupiter.api.Test
     public void onChangeTest() {
         System.out.println("TEST: onChange()");
@@ -24,8 +27,13 @@ class MVC_Editor_ControllerTest {
 
         controller.onChange("Lorem ipsum");
         assertEquals("Lorem ipsum", model.getTextArea());
+        assertEquals("2", model.getWordCount());
+        assertEquals("11", model.getCharCount());
     }
 
+    /**
+     * JUnit 5 tests for method <pre>onSave</pre>in {@link MVC_Editor_Controller}
+     */
     @org.junit.jupiter.api.Test
     public void onSaveTest() {
         // individual tests for onSave() and onOpen() b/c saveFile() and openFile() are already tested
@@ -38,9 +46,17 @@ class MVC_Editor_ControllerTest {
         String path = new File("").getAbsolutePath() + "/onSaveTest.txt";
 
         controller.onChange("Lorem \nipsum");
-        controller.onSave(path);
+        try {
+            controller.onSave(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         controller.onChange("");
-        model.openFile(path);
+        try {
+            model.openFile(path);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         assertEquals("Lorem \nipsum", model.getTextArea());
 
         try {
@@ -50,6 +66,9 @@ class MVC_Editor_ControllerTest {
         }
     }
 
+    /**
+     * JUnit 5 tests for method <pre>onOpen</pre>in {@link MVC_Editor_Controller}
+     */
     @org.junit.jupiter.api.Test
     public void onOpenTest() {
         // individual tests for onSave() and onOpen() b/c saveFile() and openFile() are already tested
@@ -62,9 +81,17 @@ class MVC_Editor_ControllerTest {
         String path = new File("").getAbsolutePath() + "/onOpenTest.txt";
 
         controller.onChange("Lorem \nipsum\n");
-        controller.onSave(path);
+        try {
+            controller.onSave(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         controller.onChange("");
-        controller.onOpen(path);
+        try {
+            controller.onOpen(path);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         assertEquals("Lorem \nipsum\n", model.getTextArea());
 
         try {
@@ -74,7 +101,9 @@ class MVC_Editor_ControllerTest {
         }
     }
 
-
+    /**
+     * JUnit 5 tests for method <pre>onTrim</pre>in {@link MVC_Editor_Controller}
+     */
     @org.junit.jupiter.api.Test
     public void onTrimTest() {
         System.out.println("TEST: onTrim()");

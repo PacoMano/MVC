@@ -1,29 +1,26 @@
-package sample;
-
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+package MVC_Editor;
 
 import java.io.*;
 import java.util.Scanner;
 
 /**
- * Processes text from {@link sample.MVC_Editor_View} and saves results in Attributes
+ * Processes text from {@link MVC_Editor_View} and saves results in Attributes
  *
- * @author patry
+ * @author dqi15bierzynski
  */
 
 public class MVC_Editor_Model {
 
 
-    //// ATTRIBUTES ////
+    ///// ATTRIBUTES /////
 
-    private String textArea= new String();
-    private String wordCount = new String();
-    private String charCount = new String();
+    private String textArea;
+    private String wordCount;
+    private String charCount;
     // TODO order wordCountTest and charCountTest
 
 
-    //// GETTER & SETTER////
+    ///// GETTER & SETTER/////
 
     /**
      * Returns attribute <pre>textArea</pre>
@@ -58,7 +55,7 @@ public class MVC_Editor_Model {
     /**
      * Sets attribute <pre>textArea</pre> to parameter <pre>text</pre>
      *
-     * @param text
+     * @param text content from <pre>textArea</pre> in {@link MVC_Editor_View}
      */
     public void setTextArea(String text) {
         // ubdates textArea so other Methods can read latest content directly from Attribute
@@ -66,40 +63,35 @@ public class MVC_Editor_Model {
     }
 
 
-    //// METHODS ////
+    ///// METHODS /////
 
     /**
      * Reads content from file with path <pre>path</pre> and saves it to attribute <pre>textArea</pre>
      *
-     * @param path
+     * @param path path to file
      * @exception FileNotFoundException
      */
-    public void openFile(String path){
-        try {
-            File file = new File(path);
-            Scanner scanner = new Scanner(file);
-            scanner.useDelimiter("\\r");
-            // makes scanner read whole file instead of only one line
-            this.textArea = scanner.next();
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+    public void openFile(String path) throws FileNotFoundException{
+        File file = new File(path);
+        Scanner scanner = new Scanner(file);
+        scanner.useDelimiter("\\r");
+        // makes scanner read whole file instead of only one line
+        this.textArea = scanner.next();
+        scanner.close();
     }
 
     /**
      * Creates a new file at path <pre>path</pre> then reads content from attribute <pre>textArea</pre> and saves it
      * to just created file
      *
-     * @param path
+     * @param path path to file
+     * @exception IOException
      */
-    public void saveFile(String path){
+    public void saveFile(String path) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
             bw.write(this.textArea);
             System.out.println("Saved to " + path );
             bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -123,13 +115,6 @@ public class MVC_Editor_Model {
     }
 
     /**
-     * Counts chars in attribute <pre>textArea</pre> and saves result to attribute <pre>wordCount</pre>
-     */
-    public void charCount(){
-        this.charCount = Integer.toString(this.getTextArea().length());
-    }
-
-    /**
      * Counts words in attribute <pre>textArea</pre> and saves result to attribute <pre>wordCount</pre>
      */
     public void wordCount(){
@@ -141,5 +126,12 @@ public class MVC_Editor_Model {
         } else {
             this.wordCount = Integer.toString(text.split("(\\W+)").length);
         }
+    }
+
+    /**
+     * Counts chars in attribute <pre>textArea</pre> and saves result to attribute <pre>wordCount</pre>
+     */
+    public void charCount(){
+        this.charCount = Integer.toString(this.getTextArea().length());
     }
 }

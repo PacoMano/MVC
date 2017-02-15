@@ -1,4 +1,4 @@
-package sample;
+package MVC_Editor;
 
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -7,45 +7,37 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 /**
- * Constructs the project, includes tests and UI
+ * Defines {@link MVC_Editor_Controller} and {@link MVC_Editor_Model}, creates UI in scene
  *
- * @author patryk
+ * @author dqi15bierzynski
  */
 public class MVC_Editor_View extends javafx.application.Application{
 
+    /**
+     * Defines {@link MVC_Editor_Controller} and {@link MVC_Editor_Model}, constructs UI in <pre>primaryScene</pre>
+     * including Eventhandlers for each button and listener for <pre>textArea</pre>; UI constists of
+     * <pre>MenuBar</pre>, <pre>ToolBar</pre>, <pre>TextArea</pre>, <pre>FileChooser</pre>, <pre>DirectoryChooser</pre>
+     *
+     * @param primaryStage
+     */
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage){
 
 
         // TODO StarUML
-        //// DEFINITION ////
+        ///// DEFINITION /////
 
         MVC_Editor_Model model = new MVC_Editor_Model();
         MVC_Editor_Controller controller = new MVC_Editor_Controller(model);
-        MVC_Editor_ModelTest modelTest = new MVC_Editor_ModelTest();
-        MVC_Editor_ControllerTest controllerTest = new MVC_Editor_ControllerTest();
 
 
-        //// TESTS ////
+        ///// UI /////
 
-        modelTest.setTextAreaTest();
-        modelTest.charCountTest();
-        modelTest.wordCountTest();
-        modelTest.trimTest();
-        modelTest.saveAndOpenTest();
-
-        controllerTest.onChangeTest();
-        controllerTest.onSaveTest();
-        controllerTest.onOpenTest();
-        controllerTest.onTrimTest();
-
-        System.out.println("Testing finished successfully");
-
-
-        //// UI ////
-
-        // MENUBAR //
+        /// MENUBAR ///
 
         Menu menuFile = new Menu("Datei");
 
@@ -56,7 +48,7 @@ public class MVC_Editor_View extends javafx.application.Application{
 
         MenuBar menuBar = new MenuBar(menuFile);
 
-        // TOOLBAR //
+        /// TOOLBAR ///
 
         Button trimButton = new Button("Trim");
 
@@ -80,21 +72,15 @@ public class MVC_Editor_View extends javafx.application.Application{
                 charCountLabel
         );
 
-        // EXPLORER //
 
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Datei öffnen:");
-
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setTitle("Speichern unter:");
-
-        // TEXTAREA //
+        /// TEXTAREA ///
 
         TextArea textArea = new TextArea();
         // makes textArea fill free vertical space
         VBox.setVgrow(textArea, Priority.ALWAYS);
 
-        // UI CONSTRUCTION //
+
+        /// UI CONSTRUCTION ///
 
         VBox root = new VBox();
 
@@ -103,14 +89,23 @@ public class MVC_Editor_View extends javafx.application.Application{
         root.getChildren().add(textArea);
 
 
-        //// STAGESETUP ////
+        ///// STAGESETUP /////
 
         primaryStage.setTitle("MVC-Texteditor");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
 
-        //// EVENTHANDLING ////
+        /// EXPLORER ///
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Datei öffnen:");
+
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Speichern unter:");
+
+
+        ///// EVENTHANDLING /////
 
         textArea.textProperty().addListener((observable, oldValue, newValue) -> {
             controller.onChange(newValue);
@@ -120,28 +115,31 @@ public class MVC_Editor_View extends javafx.application.Application{
 
         menuOpen.setOnAction(event -> {
             String selectedDirectory = fileChooser.showOpenDialog(primaryStage).getAbsolutePath();
-            controller.onOpen(selectedDirectory);
+            try {
+                controller.onOpen(selectedDirectory);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
             textArea.setText(controller.updateTextArea());
-            wordCountLabel.setText(controller.updateWordCountLabel());
-            charCountLabel.setText(controller.updateCharCountLabel());
+            // TODO protokoll: wordCountLabel und charCountLabel müssen nicht geupdatet werden da änderung in textArea und daher der listener ausgelöst wird
         });
 
         menuSave.setOnAction(event -> {
             String selectedDirectory = directoryChooser.showDialog(primaryStage).getAbsolutePath();
-            controller.onSave(selectedDirectory + "/Datei.txt");
+            try {
+                controller.onSave(selectedDirectory + "/Datei.txt");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             textArea.setText(controller.updateTextArea());
-            wordCountLabel.setText(controller.updateWordCountLabel());
-            charCountLabel.setText(controller.updateCharCountLabel());
         });
 
         trimButton.setOnAction(event -> {
             controller.onTrim();
 
             textArea.setText(controller.updateTextArea());
-            wordCountLabel.setText(controller.updateWordCountLabel());
-            charCountLabel.setText(controller.updateCharCountLabel());
         });
     }
 }
