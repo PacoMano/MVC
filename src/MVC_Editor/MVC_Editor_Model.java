@@ -17,7 +17,6 @@ public class MVC_Editor_Model {
     private String textArea;
     private String wordCount;
     private String charCount;
-    // TODO order wordCountTest and charCountTest
 
 
     ///// GETTER & SETTER/////
@@ -53,13 +52,17 @@ public class MVC_Editor_Model {
     }
 
     /**
-     * Sets attribute <pre>textArea</pre> to parameter <pre>text</pre>
+     * Sets attribute <pre>textArea</pre> to parameter <pre>text</pre> and executes private Methods 
+     * <pre>wordCount()</pre> and <pre>charCount()</pre>
      *
      * @param text content from <pre>textArea</pre> in {@link MVC_Editor_View}
      */
-    public void setTextArea(String text) {
+    public void update(String text) {
         // ubdates textArea so other Methods can read latest content directly from Attribute
         this.textArea = text;
+        // executes wordCount() and charCount() b/c textArea just changed
+        this.wordCount = this.getWordCount();
+        this.charCount = this.getCharCount();
     }
 
 
@@ -117,7 +120,7 @@ public class MVC_Editor_Model {
     /**
      * Counts words in attribute <pre>textArea</pre> and saves result to attribute <pre>wordCount</pre>
      */
-    public void wordCount(){
+    private void wordCount(){
         String text = this.getTextArea();
 
         if (text.equals("")) {
@@ -131,7 +134,7 @@ public class MVC_Editor_Model {
     /**
      * Counts chars in attribute <pre>textArea</pre> and saves result to attribute <pre>wordCount</pre>
      */
-    public void charCount(){
+    private void charCount(){
         this.charCount = Integer.toString(this.getTextArea().length());
     }
 }

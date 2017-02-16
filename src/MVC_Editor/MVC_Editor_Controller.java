@@ -49,15 +49,12 @@ public class MVC_Editor_Controller {
     }
 
     /**
-     * Executes method <pre>setTextArea(text)</pre> with parameter <pre>text</pre>, methods <pre>wordCount</pre> and
-     * <pre>charCount</pre> in {@link MVC_Editor_Model}
+     * Executes method <pre>update(text)</pre> with parameter <pre>text</pre> in {@link MVC_Editor_Model}
      *
-     * @param text Parameter for setTextArea()
+     * @param text Parameter for update()
      */
     public void onChange(String text){
-        model.setTextArea(text);
-        model.wordCount();
-        model.charCount();
+        model.update(text);
     }
 
     /**

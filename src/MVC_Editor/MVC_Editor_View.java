@@ -122,7 +122,6 @@ public class MVC_Editor_View extends javafx.application.Application{
             }
 
             textArea.setText(controller.updateTextArea());
-            // TODO protokoll: wordCountLabel und charCountLabel müssen nicht geupdatet werden da änderung in textArea und daher der listener ausgelöst wird
         });
 
         menuSave.setOnAction(event -> {
