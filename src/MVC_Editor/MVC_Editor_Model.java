@@ -28,7 +28,7 @@ public class MVC_Editor_Model {
      * @return this.textArea
      */
     public String getTextArea() {
-        // used in tests and listeners
+        // used in tests and to return attribute to view (controller)
         return this.textArea;
     }
 
@@ -38,7 +38,7 @@ public class MVC_Editor_Model {
      * @return this.wordCount
      */
     public String getWordCount() {
-        // used in tests and listeners
+        // used in tests and to return attribute to view (controller)
         return this.wordCount;
     }
 
@@ -48,7 +48,7 @@ public class MVC_Editor_Model {
      * @return this.charCount
      */
     public String getCharCount() {
-        // used in tests and listeners
+        // used in tests and to return attribute to view (controller)
         return this.charCount;
     }
 
@@ -135,3 +135,4 @@ public class MVC_Editor_Model {
         this.charCount = Integer.toString(this.getTextArea().length());
     }
 }
+
