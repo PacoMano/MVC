@@ -15,7 +15,7 @@ public class EditorModel {
     ///// ATTRIBUTES /////
 
     private String textArea = new String("");
-    // ... = new String("") to prevent NullPointerException
+    //                  ... = new String("") to prevent NullPointerException
     private String wordCount;
     private String charCount;
 
@@ -50,6 +50,10 @@ public class EditorModel {
     public String getCharCount() {
         // used in tests and to return attribute to view (controller)
         return this.charCount;
+
+
+    ///// METHODS /////
+
     }
 
     /**
@@ -65,9 +69,6 @@ public class EditorModel {
         wordCount();
         charCount();
     }
-
-
-    ///// METHODS /////
 
     /**
      * Reads content from file with path <pre>path</pre> and saves it to attribute <pre>textArea</pre>

@@ -71,8 +71,8 @@ class EditorModelTest {
      * JUnit 5 tests for method <pre>update()</pre> in class {@link EditorModel}
      */
     @org.junit.jupiter.api.Test
-    public void setTextAreaTest() throws Exception {
-        System.out.println("TEST: setTextAreaTest()");
+    public void updateTest() throws Exception {
+        System.out.println("TEST: updateTest()");
 
         EditorModel model = new EditorModel();
 
@@ -85,15 +85,15 @@ class EditorModelTest {
      * methods together b/c testing one would require the algorithm of the other to assert
      */
     @org.junit.jupiter.api.Test
-    public void saveAndOpenTest(){
+    public void saveFileAndOpenFileTest(){
         // tested together b/c if testing only one this test method would need to implement the algorithm of the other
         // one to assert whether the test was successful;copying the algorithm or calling the method makes no difference
 
-        System.out.println("TEST: saveAndOpenTest()");
+        System.out.println("TEST: saveFileAndOpenFileTest()");
 
         EditorModel model = new EditorModel();
 
-        String path = new File("").getAbsolutePath() + "/saveAndOpenTest.txt";
+        String path = new File("").getAbsolutePath() + "/saveFileAndOpenFileTest.txt";
         System.out.println(path);
 
         model.update("Lorem");
@@ -161,10 +161,6 @@ class EditorModelTest {
         Integer actual = Integer.parseInt(model.getWordCount());
         assertEquals("wordCount() not working correctly.", Integer.valueOf(1), actual);
 
-        model.update("Bob.");
-        actual = Integer.parseInt(model.getWordCount());
-        assertEquals("Dot not counted correctly.", Integer.valueOf(1), actual);
-
         model.update("Bob Charlie");
         actual = Integer.parseInt(model.getWordCount());
         assertEquals("Space not counted correctly.", Integer.valueOf(2), actual);
@@ -174,21 +170,21 @@ class EditorModelTest {
         actual = Integer.parseInt(model.getWordCount());
         assertEquals("Newline not counted correctly.", Integer.valueOf(2), actual);
 
-        model.update("Bob \nCharlie.");
-        actual = Integer.parseInt(model.getWordCount());
-        assertEquals("Space bevore newline not counted correctly.", Integer.valueOf(2), actual);
-
         model.update("Bob\n Charlie.");
         actual = Integer.parseInt(model.getWordCount());
         assertEquals("Space after newline not counted correctly.", Integer.valueOf(2), actual);
 
-        model.update("Alice\n Bob");
+        model.update("Bob \nCharlie.");
         actual = Integer.parseInt(model.getWordCount());
-        assertEquals("Spaces after newline not couted correctly.", Integer.valueOf(2), actual);
+        assertEquals("Space bevore newline not counted correctly.", Integer.valueOf(2), actual);
+
+        model.update("Alice\t Bob");
+        actual = Integer.parseInt(model.getWordCount());
+        assertEquals("Spaces after tab not couted correctly.", Integer.valueOf(2), actual);
 
         model.update("Alice \nBob");
         actual = Integer.parseInt(model.getWordCount());
-        assertEquals("Space bevore newline not couted correctly.", Integer.valueOf(2), actual);
+        assertEquals("Space bevore tab not couted correctly.", Integer.valueOf(2), actual);
 
         model.update("Alice\n\tBob");
         actual = Integer.parseInt(model.getWordCount());
@@ -246,61 +242,10 @@ class EditorModelTest {
         actual = Integer.parseInt(model.getCharCount());
         assertEquals("New line not counted correctly.", Integer.valueOf(5), actual);
 
-        model.update("\"Bob\"");
-        actual = Integer.parseInt(model.getCharCount());
-        assertEquals("Quotation marks not counted correctly.", Integer.valueOf(5), actual);
-
-        model.update("Alice\tBob");
-        actual = Integer.parseInt(model.getCharCount());
-        assertEquals("Tab not counted correctly.", Integer.valueOf(9), actual);
-
-        model.update("Alice\n Bob");
-        actual = Integer.parseInt(model.getCharCount());
-        assertEquals("Spaces after newline not couted correctly.", Integer.valueOf(10), actual);
-
-        model.update("Alice \nBob");
-        actual = Integer.parseInt(model.getCharCount());
-        assertEquals("Space bevore newline not couted correctly.", Integer.valueOf(10), actual);
-
-        model.update("Alice\n\tBob");
-        actual = Integer.parseInt(model.getCharCount());
-        assertEquals("Tab after newline not couted correctly.", Integer.valueOf(10), actual);
-
-        model.update("Alice\t\nBob");
-        actual = Integer.parseInt(model.getCharCount());
-        assertEquals("Tab bevore newline not couted correctly.", Integer.valueOf(10), actual);
-
         model.update("     ");
         // fixed
         actual = Integer.parseInt(model.getCharCount());
         assertEquals("Only spaces in textArea not couted correctly.", Integer.valueOf(5), actual);
-
-        model.update("\t");
-        // fixed
-        actual = Integer.parseInt(model.getCharCount());
-        assertEquals("Only tab in textArea not couted correctly.", Integer.valueOf(1), actual);
-
-        model.update("\t");
-        // fixed
-        actual = Integer.parseInt(model.getCharCount());
-        assertEquals("Only tab in textArea not couted correctly.", Integer.valueOf(1), actual);
-
-        model.update("   \t");
-        actual = Integer.parseInt(model.getCharCount());
-        assertEquals("Only spaces bevore tabs in textArea not couted correctly.", Integer.valueOf(4), actual);
-
-        model.update("\t  ");
-        actual = Integer.parseInt(model.getCharCount());
-        assertEquals("Only spaces after tabs in textArea not couted correctly.", Integer.valueOf(3), actual);
-
-        model.update("   \n Alice \n   Bob");
-        // fixed
-        actual = Integer.parseInt(model.getCharCount());
-        assertEquals("Spaces and word in multiple lines not couted correctly.", Integer.valueOf(18), actual);
-
-        model.update("   \n \t \n   \t");
-        actual = Integer.parseInt(model.getCharCount());
-        assertEquals("Spaces and tabs in multiple lines not couted correctly.", Integer.valueOf(12), actual);
 
         model.update("");
         actual = Integer.parseInt(model.getCharCount());
@@ -369,18 +314,6 @@ class EditorModelTest {
         assertEquals("Multiple spaces after newline not trimmed correctly.","Bob\n Charlie",
                 model.getTextArea());
 
-        // Error in manual testing but not in automated testing
-        // fixed
-        model.update("  Alice");
-        model.trim();
-        assertEquals("Multiple spaces bevore word not trimmed correctly."," Alice",
-                model.getTextArea());
-
-        model.update("   ");
-        model.trim();
-        // fixed multiple times
-        assertEquals("Only multiple spaces trimmed correctly."," ", model.getTextArea());
-
         model.update("asdf  \tasdf");
         model.trim();
         // inconsistent results in maual testing but unable to reconstruct in debug
@@ -389,5 +322,10 @@ class EditorModelTest {
         model.update("asdf\t   asdf");
         model.trim();
         assertEquals("Spaces after tab not trimmed correctly.", "asdf\t asdf", model.getTextArea());
+
+        model.update("   ");
+        model.trim();
+        // fixed multiple times
+        assertEquals("Only multiple spaces trimmed correctly."," ", model.getTextArea());
     }
 }

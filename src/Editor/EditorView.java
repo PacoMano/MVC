@@ -114,8 +114,8 @@ public class EditorView extends javafx.application.Application{
         });
 
         menuOpen.setOnAction(event -> {
-            String selectedDirectory = fileChooser.showOpenDialog(primaryStage).getAbsolutePath();
             try {
+                String selectedDirectory = fileChooser.showOpenDialog(primaryStage).getAbsolutePath();
                 controller.onOpen(selectedDirectory);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
