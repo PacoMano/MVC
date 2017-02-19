@@ -63,7 +63,7 @@ public class EditorModel {
      * @param text content from <pre>textArea</pre> in {@link EditorView}
      */
     public void update(String text) {
-        // ubdates textArea so other Methods can read latest content directly from Attribute
+        // updates textArea so other Methods can read latest content directly from Attribute
         this.textArea = text;
         // executes wordCount() and charCount() b/c textArea just changed
         wordCount();
