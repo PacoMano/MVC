@@ -108,7 +108,7 @@ public class EditorModel {
      * another
      */
     public void trim() {
-        if (this.textArea.length() > 1) {
+        /*if (this.textArea.length() > 1) {
             // trim does not make sense if textArea shorter than 2 characters
             StringBuilder text = new StringBuilder(this.textArea);
             // StringBuilder b/c it's more efficient when deleting a single char multiple times
@@ -122,7 +122,8 @@ public class EditorModel {
                 }
             }
             this.textArea = text.toString();
-        }
+        }*/
+        this.textArea = this.textArea.replaceAll(" +", " ");
     }
 
     /**
