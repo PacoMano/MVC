@@ -27,8 +27,6 @@ public class EditorView extends javafx.application.Application{
     @Override
     public void start(Stage primaryStage){
 
-        // TODO StarUML
-
         // DEFINITION //
         ////////////////
 

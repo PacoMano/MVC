@@ -16,7 +16,7 @@ import java.nio.file.Paths;
 class EditorControllerModelTest {
 
     /**
-     * JUnit 5 tests for method <pre>onChange</pre> in {@link EditorController}
+     * JUnit 5 tests for method <pre>onChange()</pre> in {@link EditorController}
      */
     @org.junit.jupiter.api.Test
     public void onChangeTest() {
@@ -32,7 +32,7 @@ class EditorControllerModelTest {
     }
 
     /**
-     * JUnit 5 tests for method <pre>onSave</pre> in {@link EditorController}
+     * JUnit 5 tests for method <pre>onSave()</pre> in {@link EditorController}
      */
     @org.junit.jupiter.api.Test
     public void onSaveTest() {
@@ -67,7 +67,7 @@ class EditorControllerModelTest {
     }
 
     /**
-     * JUnit 5 tests for method <pre>onOpen</pre> in {@link EditorController}
+     * JUnit 5 tests for method <pre>onOpen()</pre> in {@link EditorController}
      */
     @org.junit.jupiter.api.Test
     public void onOpenTest() {
@@ -102,7 +102,7 @@ class EditorControllerModelTest {
     }
 
     /**
-     * JUnit 5 tests for method <pre>onTrim</pre> in {@link EditorController}
+     * JUnit 5 tests for method <pre>onTrim()</pre> in {@link EditorController}
      */
     @org.junit.jupiter.api.Test
     public void onTrimTest() {
@@ -114,5 +114,48 @@ class EditorControllerModelTest {
         controller.onChange("  Lorem  ipsum  ");
         controller.onTrim();
         assertEquals(" Lorem ipsum ", model.getTextArea());
+    }
+
+    /**
+     * JUnit 5 tests for method <pre>updateTextArea()</pre> in {@link EditorController}
+     */
+    @org.junit.jupiter.api.Test
+    public void updateTextAreaTest() {
+        System.out.println("TEST: updateTextArea()");
+
+        EditorModel model = new EditorModel();
+        EditorController controller = new EditorController();
+
+        controller.onChange("Lorem ipsum");
+        assertEquals("Lorem ipsum", controller.updateTextArea());
+    }
+
+    /**
+     * JUnit 5 tests for method <pre>updateWordCountLabel()</pre> in {@link EditorController}
+     */
+    @org.junit.jupiter.api.Test
+    public void updateWordCountLabelTest() {
+        System.out.println("TEST: updateWordCountLabel()");
+
+        EditorModel model = new EditorModel();
+        EditorController controller = new EditorController();
+
+        controller.onChange("Lorem ipsum");
+        assertEquals(2, controller.updateWordCountLabel());
+    }
+
+    /**
+     * JUnit 5 tests for method <pre>updateCharCountLabel()</pre> in {@link EditorController}
+     */
+    @org.junit.jupiter.api.Test
+    public void updateCharCountLabelTest() {
+        System.out.println("TEST: updateCharCountLabel()");
+
+        EditorModel model = new EditorModel();
+        EditorController controller = new EditorController();
+
+        controller.onChange("Lorem ipsum");
+        assertEquals(11, controller.updateCharCountLabel());
+
     }
 }

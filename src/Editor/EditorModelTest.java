@@ -56,17 +56,6 @@ class EditorModelTest {
         }
     }
 
-    @org.junit.jupiter.api.Test
-    void test(){
-        // TODO
-        /*try() {
-            something.getExceptions();
-            fail("Exception not thrown");
-        } catch (Exception e) {
-            assertEquals(true, e instanceof EditorModel.ModelException, "" + EditorModel.ModelException);
-        }*/
-    }
-
     /**
      * JUnit 5 tests for method <pre>update()</pre> in class {@link EditorModel}
      */
@@ -154,9 +143,6 @@ class EditorModelTest {
         System.out.println("TEST: wordCountTest()");
 
         EditorModel model = new EditorModel();
-        // TODO streamline
-        // TODO split tests so to make debug easier
-        // TODO is 'actual' actually nessecary?
 
         model.update("Bob");
         Integer actual = Integer.parseInt(model.getWordCount());
@@ -227,9 +213,6 @@ class EditorModelTest {
         System.out.println("TEST: charCountTest()");
 
         EditorModel model = new EditorModel();
-        // TODO streamline
-        // TODO split tests so to make debug easier
-        // TODO is 'actual' actually nessecary?
 
         model.update("Bob");
         Integer actual = Integer.parseInt(model.getCharCount());

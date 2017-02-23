@@ -108,21 +108,6 @@ public class EditorModel {
      * another
      */
     public void trim() {
-        /*if (this.textArea.length() > 1) {
-            // trim does not make sense if textArea shorter than 2 characters
-            StringBuilder text = new StringBuilder(this.textArea);
-            // StringBuilder b/c it's more efficient when deleting a single char multiple times
-            // TODO StringBuilder nicht direkt <<mutable string>>
-            // TODO auch in protokoll
-            for (int i = 0; i < this.textArea.length() - 1; i++) {
-                if (this.textArea.substring(i, i + 2).equals("  ")) {
-                    text.deleteCharAt(i);
-                    i--;
-                    // check this index again b/c char at this index potentially changed
-                }
-            }
-            this.textArea = text.toString();
-        }*/
         this.textArea = this.textArea.replaceAll(" +", " ");
     }
 
