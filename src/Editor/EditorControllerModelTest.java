@@ -23,7 +23,7 @@ class EditorControllerModelTest {
         System.out.println("TEST: onChange()");
 
         EditorModel model = new EditorModel();
-        EditorController controller = new EditorController(model);
+        EditorController controller = new EditorController();
 
         controller.onChange("Lorem ipsum");
         assertEquals("Lorem ipsum", model.getTextArea());
@@ -41,7 +41,7 @@ class EditorControllerModelTest {
         System.out.println("TEST: onSave()");
 
         EditorModel model = new EditorModel();
-        EditorController controller = new EditorController(model);
+        EditorController controller = new EditorController();
 
         String path = new File("").getAbsolutePath() + "/onSaveTest.txt";
 
@@ -76,7 +76,7 @@ class EditorControllerModelTest {
         System.out.println("TEST: onOpen()");
 
         EditorModel model = new EditorModel();
-        EditorController controller = new EditorController(model);
+        EditorController controller = new EditorController();
 
         String path = new File("").getAbsolutePath() + "/onOpenTest.txt";
 
@@ -109,7 +109,7 @@ class EditorControllerModelTest {
         System.out.println("TEST: onTrim()");
 
         EditorModel model = new EditorModel();
-        EditorController controller = new EditorController(model);
+        EditorController controller = new EditorController();
 
         controller.onChange("  Lorem  ipsum  ");
         controller.onTrim();

@@ -27,17 +27,16 @@ public class EditorView extends javafx.application.Application{
     @Override
     public void start(Stage primaryStage){
 
-
         // TODO StarUML
-        ///// DEFINITION /////
 
-        EditorModel model = new EditorModel();
-        EditorController controller = new EditorController(model);
+        // DEFINITION //
+        ////////////////
+
+        EditorController controller = new EditorController();
 
 
-        ///// UI /////
-
-        /// MENUBAR ///
+        // UI //
+        ////////
 
         Menu menuFile = new Menu("Datei");
 
@@ -47,8 +46,6 @@ public class EditorView extends javafx.application.Application{
         menuFile.getItems().addAll(menuOpen, menuSave);
 
         MenuBar menuBar = new MenuBar(menuFile);
-
-        /// TOOLBAR ///
 
         Button trimButton = new Button("Trim");
 
@@ -72,31 +69,15 @@ public class EditorView extends javafx.application.Application{
                 charCountLabel
         );
 
-
-        /// TEXTAREA ///
-
         TextArea textArea = new TextArea();
         // makes textArea fill free vertical space
         VBox.setVgrow(textArea, Priority.ALWAYS);
-
-
-        /// UI CONSTRUCTION ///
 
         VBox root = new VBox();
 
         root.getChildren().add(menuBar);
         root.getChildren().add(toolBar);
         root.getChildren().add(textArea);
-
-
-        ///// STAGESETUP /////
-
-        primaryStage.setTitle("MVC-Texteditor");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-
-
-        /// EXPLORER ///
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Datei öffnen:");
@@ -105,7 +86,16 @@ public class EditorView extends javafx.application.Application{
         directoryChooser.setTitle("Speichern unter:");
 
 
-        ///// EVENTHANDLING /////
+        // STAGESETUP //
+        ////////////////
+
+        primaryStage.setTitle("MVC-Texteditor");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+
+        
+        // EVENTHANDLING //
+        ///////////////////
 
         textArea.textProperty().addListener((observable, oldValue, newValue) -> {
             controller.onChange(newValue);

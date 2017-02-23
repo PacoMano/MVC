@@ -12,7 +12,8 @@ import java.util.Scanner;
 public class EditorModel {
 
 
-    ///// ATTRIBUTES /////
+    // ATTRIBUTES //
+    ////////////////
 
     private String textArea = new String("");
     //                  ... = new String("") to prevent NullPointerException
@@ -20,7 +21,8 @@ public class EditorModel {
     private String charCount;
 
 
-    ///// GETTER & SETTER/////
+    // GETTER METHODS //
+    ////////////////////
 
     /**
      * Returns attribute <pre>textArea</pre>
@@ -52,7 +54,8 @@ public class EditorModel {
         return this.charCount;
 
 
-    ///// METHODS /////
+    // METHODS //
+    /////////////
 
     }
 

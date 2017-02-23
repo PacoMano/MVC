@@ -10,16 +10,15 @@ import java.io.IOException;
  */
 public class EditorController {
 
-    private EditorModel model;
 
-    /**
-     * Constructor initialising attribute <pre>model</pre> with parameter <pre>model</pre>
-     *
-     * @param model {@link EditorModel}
-     */
-    public EditorController(EditorModel model){
-        this.model = model;
-    }
+    // ATTRIBUTES //
+    ////////////////
+
+    private EditorModel model = new EditorModel();
+
+
+    // METHODS //
+    /////////////
 
     /**
      * Executes method <pre>openFile(selectedDirectory)</pre> in {@link EditorModel} with parameter
