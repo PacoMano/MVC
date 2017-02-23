@@ -38,7 +38,7 @@ public class EditorView extends javafx.application.Application{
 
         Menu menuFile = new Menu("Datei");
 
-        MenuItem menuOpen = new MenuItem("Öffnen");
+        MenuItem menuOpen = new MenuItem("Oeffnen");
         MenuItem menuSave = new MenuItem("Speichern");
 
         menuFile.getItems().addAll(menuOpen, menuSave);
@@ -51,7 +51,7 @@ public class EditorView extends javafx.application.Application{
         // makes pane have dynamic size so labels are arranged to the right
         HBox.setHgrow(growingPane, Priority.ALWAYS);
 
-        Label wordTag = new Label("Wörter:");
+        Label wordTag = new Label("Woerter:");
         Label wordCountLabel = new Label("0");
         Separator separator = new Separator();
         Label charTag = new Label("Zeichen:");
@@ -78,7 +78,7 @@ public class EditorView extends javafx.application.Application{
         root.getChildren().add(textArea);
 
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Datei öffnen:");
+        fileChooser.setTitle("Datei oeffnen:");
 
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Speichern unter:");
