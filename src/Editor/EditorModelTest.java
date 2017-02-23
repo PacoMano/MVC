@@ -77,7 +77,8 @@ class EditorModelTest {
         EditorModel model = new EditorModel();
 
         model.update("Lorem ipsum dolor sit");
-        assertEquals("TextArea not updated.", "Lorem ipsum dolor sit", model.getTextArea());
+        assertEquals("textArea not updated correctly or getTextArea() not working correctly.",
+                "Lorem ipsum dolor sit", model.getTextArea());
     }
 
     /**
@@ -159,7 +160,7 @@ class EditorModelTest {
 
         model.update("Bob");
         Integer actual = Integer.parseInt(model.getWordCount());
-        assertEquals("wordCount() not working correctly.", Integer.valueOf(1), actual);
+        assertEquals("wordCount() or getWordCount() not working correctly.", Integer.valueOf(1), actual);
 
         model.update("Bob Charlie");
         actual = Integer.parseInt(model.getWordCount());
@@ -232,7 +233,7 @@ class EditorModelTest {
 
         model.update("Bob");
         Integer actual = Integer.parseInt(model.getCharCount());
-        assertEquals("charCount not working correctly.", Integer.valueOf(3), actual);
+        assertEquals("charCount() or getCharCount() not working correctly.", Integer.valueOf(3), actual);
 
         model.update("B o b");
         actual = Integer.parseInt(model.getCharCount());

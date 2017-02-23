@@ -26,12 +26,9 @@ class EditorControllerModelTest {
         EditorController controller = new EditorController();
 
         controller.onChange("Lorem ipsum");
-        assertEquals("TextArea not updated correctly or getTextArea() not working correctly",
-                "Lorem ipsum", model.getTextArea());
-        assertEquals("wordCount not updated correctly or getWordCount() not working correctly",
-                "2", model.getWordCount());
-        assertEquals("charCount not updated correctly or getCharCount() not working correctly",
-                "11", model.getCharCount());
+        assertEquals("textArea not updated correctly.", "Lorem ipsum", model.getTextArea());
+        assertEquals("wordCount not updated correctly.", "2", model.getWordCount());
+        assertEquals("charCount not updated correctly.", "11", model.getCharCount());
     }
 
     /**
