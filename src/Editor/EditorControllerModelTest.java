@@ -26,9 +26,40 @@ class EditorControllerModelTest {
         EditorController controller = new EditorController();
 
         controller.onChange("Lorem ipsum");
-        assertEquals("textArea not updated correctly.", "Lorem ipsum", model.getTextArea());
-        assertEquals("wordCount not updated correctly.", "2", model.getWordCount());
-        assertEquals("charCount not updated correctly.", "11", model.getCharCount());
+        assertEquals("textArea not updated correctly or updateTextArea() not working.",
+                "Lorem ipsum", controller.updateTextArea());
+        assertEquals("wordCount not updated correctly or updateWordCountLabel() not working.", 2,
+                Integer.parseInt(controller.updateWordCountLabel()));
+        assertEquals("charCount not updated correctly or updateCharCountLabel() not working.", 11,
+                Integer.parseInt(controller.updateCharCountLabel()));
+    }
+
+    /**
+     * JUnit 5 tests for method <pre>updateWordCountLabel()</pre> in {@link EditorController}
+     */
+    @org.junit.jupiter.api.Test
+    public void updateWordCountLabelTest() {
+        System.out.println("TEST: updateWordCountLabel()");
+
+        EditorModel model = new EditorModel();
+        EditorController controller = new EditorController();
+
+        controller.onChange("Lorem ipsum");
+        assertEquals(2, Integer.parseInt(controller.updateWordCountLabel()));
+    }
+
+    /**
+     * JUnit 5 tests for method <pre>updateCharCountLabel()</pre> in {@link EditorController}
+     */
+    @org.junit.jupiter.api.Test
+    public void updateCharCountLabelTest() {
+        System.out.println("TEST: updateCharCountLabel()");
+
+        EditorModel model = new EditorModel();
+        EditorController controller = new EditorController();
+
+        controller.onChange("Lorem ipsum");
+        assertEquals(11, Integer.parseInt(controller.updateCharCountLabel()));
     }
 
     /**
@@ -92,7 +123,7 @@ class EditorControllerModelTest {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        assertEquals("Lorem \nipsum\n", model.getTextArea());
+        assertEquals("Lorem \nipsum\n", controller.updateTextArea());
 
         try {
             Files.delete(Paths.get(path));
@@ -113,49 +144,6 @@ class EditorControllerModelTest {
 
         controller.onChange("  Lorem  ipsum  ");
         controller.onTrim();
-        assertEquals(" Lorem ipsum ", model.getTextArea());
-    }
-
-    /**
-     * JUnit 5 tests for method <pre>updateTextArea()</pre> in {@link EditorController}
-     */
-    @org.junit.jupiter.api.Test
-    public void updateTextAreaTest() {
-        System.out.println("TEST: updateTextArea()");
-
-        EditorModel model = new EditorModel();
-        EditorController controller = new EditorController();
-
-        controller.onChange("Lorem ipsum");
-        assertEquals("Lorem ipsum", controller.updateTextArea());
-    }
-
-    /**
-     * JUnit 5 tests for method <pre>updateWordCountLabel()</pre> in {@link EditorController}
-     */
-    @org.junit.jupiter.api.Test
-    public void updateWordCountLabelTest() {
-        System.out.println("TEST: updateWordCountLabel()");
-
-        EditorModel model = new EditorModel();
-        EditorController controller = new EditorController();
-
-        controller.onChange("Lorem ipsum");
-        assertEquals(2, controller.updateWordCountLabel());
-    }
-
-    /**
-     * JUnit 5 tests for method <pre>updateCharCountLabel()</pre> in {@link EditorController}
-     */
-    @org.junit.jupiter.api.Test
-    public void updateCharCountLabelTest() {
-        System.out.println("TEST: updateCharCountLabel()");
-
-        EditorModel model = new EditorModel();
-        EditorController controller = new EditorController();
-
-        controller.onChange("Lorem ipsum");
-        assertEquals(11, controller.updateCharCountLabel());
-
+        assertEquals(" Lorem ipsum ", controller.updateTextArea());
     }
 }
