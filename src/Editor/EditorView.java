@@ -113,9 +113,9 @@ public class EditorView extends javafx.application.Application{
         });
 
         menuSave.setOnAction(event -> {
-            String selectedDirectory = directoryChooser.showDialog(primaryStage).getAbsolutePath();
+            String selectedDirectory = directoryChooser.showSaveDialog(primaryStage).getAbsolutePath();
             try {
-                controller.onSave(selectedDirectory + "/Datei.txt");
+                controller.onSave(selectedDirectory);
             } catch (IOException e) {
                 e.printStackTrace();
             }
